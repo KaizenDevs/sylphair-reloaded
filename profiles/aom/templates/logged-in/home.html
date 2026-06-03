@@ -1,0 +1,24 @@
+
+<ion-view name="aom-home-view" view-title="{{'aom_home_title' | translate}}" hide-back-button="true" animation="slide-left-right">
+
+  <ion-nav-buttons side="left">
+    <button ng-click="menu()" class="button button-icon button-clear ion-navicon"  menu-toggle="left"></button>
+  </ion-nav-buttons>
+
+  <ion-content padding="true">
+
+    <section class="container">
+      <div class="element padding">
+        <a href="#app-aom/search" class="button button-block text-left icon-left ion-plane button-block button-positive">
+          <span translate="search_crews_label"></span>
+        </a>
+      </div>
+      <div class="element padding">
+				<a href="#/app-aom/create-job" class="button button-block text-left icon-left ion-briefcase button-block button-positive">
+          <span translate="post_job_label"></span>
+        </a>
+      </div>
+    </section>
+
+  </ion-content>
+</ion-view>

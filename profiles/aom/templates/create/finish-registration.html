@@ -1,0 +1,76 @@
+<ion-view name="create-aom-finish-registration-view" view-title="{{ 'aom_registration_title' | translate }}">
+  <ion-nav-buttons side="left">
+    <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+    </button>
+  </ion-nav-buttons>
+
+
+  <ion-content padding="true">
+
+    <div class="row" class="create-aom-finish-registration-view">
+      <div class="col-80 col-offset-10">
+        <p class="intro-info">
+          <strong translate="welcome_msg"></strong>
+          <span translate="aom_info"></span><br><br>
+          <!-- <br><br>We highly recommended you to <strong><a ng-href='#/registration' ng-click='openModal()'>upload your picture</a></strong> touching the box with the camera <i class="ion-camera"></i> on top of the page. -->
+          <span translate="aom_info_2"></span>
+        </p>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="list">
+      <label class="item item-input">
+    <div class="input-label" translate="aom_company_label"></div>
+    <input ng-model="aom.company_name" placeholder="{{ 'optional_placeholder' | translate }}" class="right-placeholder" type="text">
+  </label>
+      <label class="item item-input">
+    <div class="input-label" translate="phone_number_label"></div>
+		<input ng-model="aom.phone" class="right-placeholder" type="number" min="0" ng-maxlength="15" inputmode="numeric" pattern="[0-9]*" placeholder="{{ 'no_spaces_placeholder' | translate }}">
+  </label>
+
+      <!-- <label class="item item-input">
+    <div class="input-label">
+      Email
+    </div>
+    <input ng-model="aom.email"  class="right-placeholder" type="email">
+  </label> -->
+
+      <label class="item item-input">
+    <div class="input-label" translate="address_label"></div>
+    <input ng-model="aom.address"  class="right-placeholder" type="text">
+  </label>
+
+      <label class="item item-input item-select">
+    <div class="input-label" translate="country_label"></div>
+
+		<select ng-model="aom.country_id" ng-options="country.id as country.name | translate for country in countries">
+		</select>
+  </label>
+
+
+      <label class="item item-input">
+		<div class="input-label" translate="skype_label"></div>
+		<input ng-model="aom.skype" placeholder="{{ 'optional_placeholder' | translate }}" class="right-placeholder" type="text">
+	</label>
+      <label class="item item-input">
+		<div class="input-label" translate="website_label"></div>
+		<input ng-model="aom.website" placeholder="{{ 'optional_placeholder' | translate }}" class="right-placeholder" type="text">
+	</label>
+
+    </div>
+    <button ng-click="vm.doRegister()" class="button button-block button-positive"
+    translate="aom_finish_button"></button>
+
+  </ion-content>
+
+
+  <!-- <ion-footer-bar align-title="center" class="footer-bar">
+<div class="row m-0">
+  <div class="col"><a ng-click="$ionicGoBack()" class="button next ion-chevron-left"> Back</a></div>
+  <div class="col text-center step-count">1/10</div>
+  <div class="col text-right"><a href="#/app-pilot/aom-welcome" class="button  next icon-right ion-chevron-right">Finish</a></div>
+</div>
+</ion-footer-bar> -->
+</ion-view>

@@ -1,0 +1,69 @@
+<ion-view name="create-pilot-4-view" view-title="{{ 'professional_experience_title' | translate }}">
+  <ion-nav-bar class="bar-dark-light">
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+    </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button ng-show="showCancelEdit" ng-click="cancelEdit()" class="button-cancel-edit">
+          <span translate="cancel_label"></span>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content padding="true">
+    <!-- <p class='m-tb-1 p-b-1'>Check on the world zones that you have worked on, any additional data you may add it using the <strong>Additional information input.</strong></p> -->
+
+    <div class="list" ng-repeat="IE in createMechanic.aircraft_experiences_attributes track by $index" ng-if="!IE._destroy">
+      <label class="item item-input item-select">
+        <div class="input-label">
+          <span translate="aircraft_label"></span><br>
+          <span translate="qualification_label"></span>
+        </div>
+        <select name="aircraft-qa" ng-model="IE.aircraft_id" ng-options="aircraft.id as aircraft.name for aircraft in aircrafts" ng-change="simpleSave.save('{{currentKey}}.aircraft_experiences_attributes.{{$index}}.aircraft_id', IE.aircraft_id)">
+        </select>
+      </label>
+      <label class="item right">
+  	    <button class="button-like-link" ng-click="nestedObjectHandler.remove( {{$index}},'{{currentKey}}','aircraft_experiences_attributes')" translate="delete_qualification"></button>
+  	  </label>
+    </div>
+
+    <label class="item no-border right">
+        <button class="button-like-link" ng-click="nestedObjectHandler.add('{{currentKey}}','aircraft_experiences_attributes')" translate="add_qualification"></button>
+    </label>
+    <br>
+    <div class="list" ng-repeat="PE in createMechanic.professional_experience track by $index">
+
+      <label class="item item-input">
+        <div class="input-label" translate="certification_label"></div>
+        <input class="right-placeholder" type="text" ng-model="PE.training_certification" ng-change="simpleSave.save('{{currentKey}}.professional_experience.{{$index}}.training_certification', PE.training_certification )">
+      </label>
+
+      <label class="item item-input item-select">
+        <div class="input-label" translate="issuing_auth_label"></div>
+        <select name="issuance-autority" ng-model="PE.issuance_authority" ng-options="issuance_authority.value as issuance_authority.value for issuance_authority in mechanic_issuance_authorities" ng-change="simpleSave.save('{{currentKey}}.professional_experience.{{$index}}.issuance_authority', PE.issuance_authority)">
+        </select>
+      </label>
+
+      <label class="item item-input item-select">
+        <div class="input-label" translate="issuing_country_label">
+        </div>
+        <select name="issuance-country" ng-model="PE.issuance_country_id" ng-options="country.id as country.name | translate for country in countries" ng-change="simpleSave.save('{{currentKey}}.professional_experience.{{$index}}.issuance_country_id', PE.issuance_country_id )">
+        </select>
+      </label>
+
+      <label class="item item-input item-stacked-label">
+		    <span class="input-label" translate="about_me_label"></span>
+		    <textarea ng-model="PE.about_me" ng-change="simpleSave.save('{{currentKey}}.professional_experience.{{$index}}.about_me', PE.about_me)" placeholder="{{ 'additional_prof_experience_placeholder' | translate }}" rows="10" cols="10"></textarea>
+		  </label>
+
+    </div>
+  </ion-content>
+  <ion-footer-bar align-title="center" class="footer-bar">
+    <div class="row m-0">
+      <div class="col"><a href="{{backURL}}" class="button next ion-chevron-left">  {{ 'back_label' | translate }}</a></div>
+      <div class="col text-center step-count">6/7</div>
+      <div ng-click="vm.validateExperience()" class="col text-right"><a class="button next icon-right ion-chevron-right" translate="next_label"></a></div>
+    </div>
+  </ion-footer-bar>
+</ion-view>

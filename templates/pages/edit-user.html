@@ -1,0 +1,158 @@
+<ion-view name="edit-user-view">
+  <ion-nav-bar class="bar-dark-light">
+    <ion-nav-buttons side="left">
+      <button ng-click="goBack()" class="button button-clear">
+        <span class="search">
+          <i class="icon ion-chevron-left small"></i> {{'cancel_label' | translate}}
+        </span>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content>
+    <div class="row m-t-3">
+      <div class="down" ng-click="goDown()">.</div>
+      <div class="col-80 col-offset-10">
+        <button class="button button-icon icon  upload-button" ng-click="openModal()">
+
+					<!-- <i ng-show="!newPicture" class="photo-button ion-camera"></i>
+					<p ng-show="!newPicture">change picture<p> -->
+					<img ng-src="{{user.avatar}}" class="full-width">
+
+				</button>
+        <a ng-show="user.avatar !== undefined" ng-click="openModal()" class="button button-block button-positive" href="" translate="update_picture_label"></a>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-80 col-offset-10">
+        <p class="intro-info-2">
+          <span translate="update_password_msg"></span>
+          <strong translate="update_password_msg_2"></strong>
+        </p>
+      </div>
+    </div>
+    <form class="m-0" name="registerForm" ng-submit="doRegister(registerForm)" id="login-form" novalidate="novalidate">
+      <div class="list list-inset spacy">
+
+        <label class="item item-input" ng-class="{'has-error': registerForm.firstName.$invalid && registerForm.$touched}">
+          <span class="input-label" translate="first_name_label"></span>
+          <input class="right-placeholder" type="text" ng-model="user.name" minlength="2" name="firstName" ng-maxlength="15" required>
+        </label>
+        <label class="item item-input" ng-class="{'has-error': registerForm.lastName.$invalid && registerForm.$touched}">
+          <span class="input-label" translate="last_name_label"></span>
+          <input class="right-placeholder" type="text" ng-model="user.last_name" minlength="2" name="lastName" ng-maxlength="15" required>
+        </label>
+
+        <ion-list ng-show="!is_aircraft_owner()">
+          <label class="item item-input clean">
+            <ion-checkbox ng-model="user.hide_from_searches">
+              <span>Hide Profile </span>  
+            </ion-checkbox>
+          </label>
+          <label class="item clean text-right">
+            <button type="button" class="button icon-left ion-edit button-block button-positive" style="background-color: red" ng-click="deleteAccountAlert()">Delete Account</button>
+          </label>
+        </ion-list>
+
+        <div ng-show="is_aircraft_owner()">
+          <label class="item item-input item-select">
+            <div class="input-label" translate="nationality_label"></div>
+            <select ng-model="aircraft_owner.country_id" ng-options="country.id as country.name | translate for country in countries">
+            </select>
+          </label>
+
+          <label class="item item-input" ng-class="{'has-error': registerForm.phone.$invalid && registerForm.$touched }">
+            <span class="input-label" translate="phone_number_label"></span>
+            <input class="right-placeholder" type="number" ng-model="aircraft_owner.phone" name="phone" ng-maxlength="30">
+          </label>
+
+          <label class="item item-input" ng-class="{'has-error': registerForm.address.$invalid && registerForm.$touched }">
+            <span class="input-label" translate="address_label"></span>
+            <input class="right-placeholder" placeholder="{{'optional_placeholder' | translate }}" type="text" ng-model="aircraft_owner.address" name="address">
+          </label>
+
+          <label class="item item-input" ng-class="{'has-error': registerForm.company_name.$invalid && registerForm.$touched }">
+            <span class="input-label" translate="company_name_label"></span>
+            <input class="right-placeholder" placeholder="{{'optional_placeholder' | translate }}" type="text" ng-model="aircraft_owner.company_name" name="company_name">
+          </label>
+
+          <label class="item item-input" ng-class="{'has-error': registerForm.skype.$invalid && registerForm.$touched }">
+            <span class="input-label" translate="skype_label"></span>
+            <input class="right-placeholder" placeholder="{{'optional_placeholder' | translate }}" type="text" ng-model="aircraft_owner.skype" name="skype">
+          </label>
+
+          <label class="item item-input" ng-class="{'has-error': registerForm.website.$invalid && registerForm.$touched }">
+            <span class="input-label" translate="website_label"></span>
+            <input class="right-placeholder" placeholder="{{'optional_placeholder' | translate }}" type="text" ng-model="aircraft_owner.website" name="website">
+          </label>
+        
+          <label class="item item-input" ng-class="{'has-error': registerForm.password.$invalid && registerForm.$touched }">
+            <span class="input-label" translate="password_label"></span>
+            <input class="right-placeholder" type="password" placeholder="{{'type_new_password_placeholder' | translate }}" ng-model="user.password" name="password" minlength="8" ng-maxlength="30">
+          </label>
+    
+        </div>
+
+        <label class="item clean">
+          <button class="button icon-left ion-edit button-block button-positive" type="submit" translate="save_changes_label"></button>
+        </label>
+      </div>
+    </form>
+    <div class="row">
+      <div class="col">
+        <div ng-messages="registerForm.profile.$error" style="color:maroon" role="alert" ng-show="registerForm.profile.$invalid && registerForm.$touched">
+          <div ng-message="required" ng-show="registerForm.profile.$invalid" translate="select_profile_msg"></div>
+        </div>
+        <div ng-messages="registerForm.firstName.$error" style="color:maroon" role="alert" ng-show="registerForm.$touched">
+          <div ng-message="required" translate="enter_firstname_msg"></div>
+          <div ng-message="minlength" translate="short_firstname_msg"></div>
+          <div ng-message="maxlength" translate="long_firstname_msg"></div>
+        </div>
+        <div ng-messages="registerForm.lastName.$error" style="color:maroon" role="alert" ng-show="registerForm.$touched">
+          <div ng-message="required" translate="enter_lastname_msg"></div>
+          <div ng-message="minlength" translate="short_lastname_msg"></div>
+          <div ng-message="maxlength" translate="long_lastname_msg"></div>
+        </div>
+
+        <div ng-messages="registerForm.email.$error" style="color:maroon" role="alert" ng-show="registerForm.$touched">
+          <div ng-message="required" translate="enter_email_msg"></div>
+          <div ng-message="email" translate="email_error_msg"></div>
+          <div ng-message="minlength" translate="email_error_msg"></div>
+        </div>
+
+        <div ng-messages="registerForm.password.$error" style="color:maroon" role="alert" ng-show="registerForm.$touched">
+          <div ng-message="required" translate="enter_password_msg"></div>
+          <div ng-message="minlength" translate="short_password_msg"></div>
+          <div ng-message="maxlength" translate="long_password_msg"></div>
+        </div>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>
+
+<script id="add-a-picture.html" type="text/ng-template">
+  <ion-modal-view class="modal-view">
+    <ion-header-bar>
+      <h1 class="title" translate="upload_picture"></h1>
+      <button class="button button-clear" ng-click="closeModal()" translate="cancel_btn"></button>
+    </ion-header-bar>
+    <ion-content>
+      <div class="row">
+        <div class="col">
+          <button class="button button-block button-positive m-0 text-left" ng-click="takePhoto()" type="submit">
+            <i class="ion-ios-camera-outline"></i> <span translate="take_picture_btn"></span>
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button class="button button-block button-positive m-0 text-left" ng-click="choosePhoto()" type="submit">
+            <i class="ion-ios-cloud-upload-outline"></i> <span translate="choose_photo_btn"></span>
+          </button>
+        </div>
+      </div>
+    </ion-content>
+  </ion-modal-view>
+</script>

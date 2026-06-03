@@ -1,0 +1,34 @@
+<ion-view name="pilot-my-profile-view" view-title="{{'my_profile_label' | translate}}">
+
+  <ion-content padding="true">
+
+        <div class="avatar" style="background-image: url({{user.avatar}})">
+        </div>
+
+        <div class="row">
+          <div class="center">
+            <h4>{{user.name}} {{user.last_name}}</h4>
+          </div>
+        </div>
+
+
+      <div class="item item-info">
+        <p ng-show="user.aircraft_owner.phone"><span class="title">{{'phone_number_label' | translate}}:</span><br> {{user.aircraft_owner.phone}}</p>
+        <p ng-show="user.aircraft_owner.address"><span class="title">{{'address_label' | translate}}:</span><br>  {{user.aircraft_owner.address}}</p>
+  			<p ng-show="user.aircraft_owner.website"><span class="title">{{'website_label' | translate}}:</span><br> {{ user.aircraft_owner.website }}</p>
+  			<p ng-show="user.aircraft_owner.skype"><span class="title">{{'skype_label' | translate}}:</span><br> {{ user.aircraft_owner.skype }}</p>
+        <p ng-show="user.aircraft_owner.country_id"><span class="title">{{'nationality_label' | translate}}:</span><br> {{ user.aircraft_owner.country_id | objectById:'countries' | translate }}</p>
+        <p ng-show="user.aircraft_owner.company_name && company_name != ''"><span class="title">{{'company_name_label' | translate}}:</span><br> {{ user.aircraft_owner.company_name }}</p>
+        <div class="row">
+          <div class="col"><p><span class="title">{{'posted_jobs_label' | translate }}:</span><br> {{ postedJobs }}</p></div>
+          <div class="col text-right">
+            <a href="#app-aom/jobs-created" class="button button-small button-positive" translate="view_edit_label"></a>
+          </div>
+        </div>
+      </div>
+      <br>
+
+      <a href="#edit-user" class="button icon-left ion-edit button-block button-positive"translate="edit_profile_label"></a>
+
+  </ion-content>
+</ion-view>

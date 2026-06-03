@@ -1,0 +1,53 @@
+<ion-view name="messages-view" view-title="{{'chat_label' | translate}}">
+
+  <ion-header-bar>
+    <ion-nav-buttons side="left"></ion-nav-buttons>
+  <div class="messages-module-header">
+    <div class="messages-module-header--content">
+      <img class="messages-module--header--image" style="background-image:url({{recipient.avatar}})" />
+      <span class="messages-module--header--info">
+        <h2 class="messages-module--header--info--name">{{ recipient.name }} {{ recipient.last_name }}</h2>
+        <p class="messages-module--header--info--role"><strong>{{ recipient.role }}</strong></p>
+      </span>
+    </div>
+  </div>
+  </ion-header-bar>
+  <ion-content class="ion-content-messages">
+  <div class="messages-module no-more-messages" ng-if="isLastPage">
+      <p><small>There is no more messages</small></p>
+      <hr>
+    </div>
+
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="doRefresh()"
+      >
+    </ion-refresher>
+
+    <div class="messages-module light-gray-">
+      <div class="messages-list">
+        <div class="list padding">
+          <div class="full-width" ng-class="message.user_id==recipient_id? 'pull-right right' : ''" ng-repeat="message in messages track by $index">
+            <div class="item-chat-single" style="margin-left: auto">
+              <p>{{message.content}}</p>
+              <small>{{message.date}}</small>
+              </br>
+              <small ng-if="message.user_id!=recipient_id">You</small>
+              <small ng-if="message.user_id==recipient_id">{{recipient.name}}</small>
+            </div>
+          </div>
+          <!-- pull-right right -->
+        </div>
+      </div>
+    </div>
+
+  </ion-content>
+
+  <ion-footer-bar class="bar-message" keyboard-attach ng-blur="scrollToBottom()">
+    <div class="messages-module">
+      <input id="message-input" type="text" ng-focus="scrollToBottom()" ng-blur="scrollToBottom()" ng-model="newMessage">
+      <button class="button button-positive" ng-click="sendMessage()" translate="send_label"></button>
+    </div>
+  </ion-footer-bar>
+
+</ion-view>

@@ -1,0 +1,52 @@
+<ion-view name="create-pilot-6-view" view-title="{{ 'unavailable_days_title' | translate }}">
+  <ion-nav-bar class="bar-dark-light">
+  <ion-nav-buttons side="left">
+    <button class="button button-icon button-clear ion-navicon"  menu-toggle="left">
+    </button>
+  </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button ng-show="showCancelEdit" ng-click="cancelEdit()" class="button-cancel-edit">
+          <span translate="cancel_label"></span>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+	<ion-content padding="true">
+		<p class='m-tb-1 p-b-1 text-center'>
+			<i class="ion-calendar"></i>
+			<span translate="unavailable_info"></span><br>
+			<strong translate="unavailable_info_2"></strong>
+		</p>
+		<div class="list">
+
+		  <h3 class="text-center">
+		  	{{unavailable_days_attributes.length}}
+			<span translate="days_selected_label"></span>
+		  </h3>
+
+		  <div class="row">
+		    <div class="col col-50">
+		      <ionic-multi-date-picker myCallback="linkuCallback" input-obj="datepickerObject">
+		        <button  class="button button-block button-positive" translate="select_days_label"></button>
+		      </ionic-multi-date-picker>
+		    </div>
+		    <div class="col col-50">
+		      <button ng-click="clearDates()" class="button button-block button-positive" translate="clear_date_label"></button>
+		    </div>
+		  </div>
+
+		<label class="item item-input item-stacked-label">
+		  <span class="input-label" translate="additional_information"></span>
+		  <textarea placeholder="{{ 'additional_experience_placeholder' | translate }}" rows="10" cols="10"></textarea>
+		</label>
+		</div>
+	</ion-content>
+
+	<ion-footer-bar align-title="center" class="footer-bar">
+		<div class="row m-0">
+		  <div class="col"><a href="{{backURL}}" class="button next ion-chevron-left"> {{'back_label' | translate }}</a></div>
+		  <div class="col text-center step-count">7/7</div>
+		  <div class="col text-right"><a href="{{nextURL}}" class="button  next  icon-right ion-chevron-right" translate="review_label"></a></div>
+		</div>
+	</ion-footer-bar>
+</ion-view>

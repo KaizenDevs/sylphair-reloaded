@@ -1,0 +1,76 @@
+<ion-view name="type-rating-view" view-title="{{ 'pilot_rating_title' | translate }}" >
+
+  <ion-nav-bar class="bar-dark-light">
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+    </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button ng-show="showCancelEdit" ng-click="cancelEdit()" class="button-cancel-edit">
+          <span translate="cancel_label"></span>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content padding="true">
+
+    <div class="list" ng-repeat="typeRating in createPilot.type_ratings_attributes track by $index" ng-if="!typeRating._destroy">
+
+      <label class="item item-input item-select">
+        <div class="input-label" translate="aircraft_label"></div>
+
+        <select ng-options="aircraft.id as aircraft.name for aircraft in aircrafts" ng-model="typeRating.aircraft_id" ng-change="simpleSave.save('{{currentKey}}.type_ratings_attributes.{{$index}}.aircraft_id', typeRating.aircraft_id )" >
+
+        </select>
+      </label>
+
+      <label class="item item-input item-input-date">
+        <span class="input-label" translate="pilot_last_flown_label"></span>
+        <input type="date" class="input-date" ng-model="typeRating.last_flown_on"  ng-model-options="{ updateOn: 'blur' }" ng-change="simpleSave.save('{{currentKey}}.type_ratings_attributes.{{$index}}.last_flown_on', typeRating.last_flown_on )">
+      </label>
+
+      <label class="item item-input">
+        <div class="input-label" translate="pilot_aircraft_time_label"></div>
+        <input class="right-placeholder" type="number" min="0" ng-maxlength="15" inputmode="numeric" pattern="[0-9]*" placeholder="{{ 'no_spaces_placeholder' | translate }}" ng-model-options="{ updateOn: 'blur' }" ng-model="typeRating.time_in_aircraft" ng-change="simpleSave.save('{{currentKey}}.type_ratings_attributes.{{$index}}.time_in_aircraft', typeRating.time_in_aircraft )">
+      </label>
+
+      <label class="item item-input">
+        <div class="input-label" translate="pilot_pic_hours_label"></div>
+        <input class="right-placeholder" type="number" min="0" ng-maxlength="15" inputmode="numeric" pattern="[0-9]*" ng-model-options="{ updateOn: 'blur' }" ng-model="typeRating.pic_hours" ng-change="simpleSave.save('{{currentKey}}.type_ratings_attributes.{{$index}}.pic_hours', typeRating.pic_hours )">
+      </label>
+
+      <label class="item item-input">
+        <div class="input-label" translate="pilot_sic_hours_label"></div>
+        <input class="right-placeholder" type="number" min="0" ng-maxlength="15" inputmode="numeric" pattern="[0-9]*" ng-model-options="{ updateOn: 'blur' }" ng-model="typeRating.sic_hours" ng-change="simpleSave.save('{{currentKey}}.type_ratings_attributes.{{$index}}.sic_hours', typeRating.sic_hours )">
+      </label>
+
+      <label class="item item-input item-input-date">
+        <span class="input-label" translate="pilot_current_till_label"></span>
+        <input type="date" class="input-date" ng-model-options="{ updateOn: 'blur' }" ng-model="typeRating.current_till" ng-change="simpleSave.save('{{currentKey}}.type_ratings_attributes.{{$index}}.current_till', typeRating.current_till )">
+      </label>
+
+      <label class="item item-input clean">
+        <ion-checkbox ng-model="typeRating.part_135" ng-change="simpleSave.save('{{currentKey}}.type_ratings_attributes.{{$index}}.part_135', typeRating.part_135 )">
+          <span translate="pilot_part_135_label"></span>
+        </ion-checkbox>
+      </label>
+
+      <label class="item right">
+        <button class="button-like-link" ng-click="nestedObjectHandler.remove( {{$index}},'{{currentKey}}','type_ratings_attributes')" translate="pilot_delete_rating_label"></button>
+      </label>
+
+    </div>
+    <label class="item no-border right">
+      <button class="button-like-link" ng-click="nestedObjectHandler.add('{{currentKey}}','type_ratings_attributes')" translate="pilot_add_rating_label"></button>
+  </label>
+  </ion-content>
+
+  <ion-footer-bar align-title="center" class="footer-bar">
+    <div class="row m-0">
+      <div class="col"><a href="{{backURL}}" class="button next ion-chevron-left"> {{ 'back_label' | translate }}</a></div>
+      <div class="col text-center step-count">5/10</div>
+      <div ng-click="vm.validateRating()" class="col text-right"><a class="button  next  icon-right ion-chevron-right" translate="next_label"></a></div>
+    </div>
+  </ion-footer-bar>
+
+</ion-view>

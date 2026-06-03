@@ -1,0 +1,34 @@
+[{
+  "id": 2,
+  "name": "arabic_lang_option"
+}, {
+  "id": 10,
+  "name": "german_lang_option"
+}, {
+  "id": 12,
+  "name": "english_lang_option"
+}, {
+  "id": 18,
+  "name": "french_lang_option"
+}, {
+  "id": 22,
+  "name": "hindu_lang_option"
+}, {
+  "id": 29,
+  "name": "japanese_lang_option"
+}, {
+  "id": 32,
+  "name": "korean_lang_option"
+}, {
+  "id": 48,
+  "name": "portuguese_lang_option"
+}, {
+  "id": 51,
+  "name": "russian_lang_option"
+}, {
+  "id": 55,
+  "name": "spanich_lang_option"
+}, {
+  "id": 71,
+  "name": "chinese_lang_option"
+}]

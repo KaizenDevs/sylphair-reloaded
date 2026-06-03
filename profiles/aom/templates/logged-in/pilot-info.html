@@ -1,0 +1,255 @@
+<ion-view name="pilot-my-profile-view" view-title="{{'profile_information_title' | translate}}">
+
+  <ion-nav-bar class="bar-dark-light">
+    <ion-nav-buttons side="left">
+      <button ng-click="goBack()" class="button-custom-back">
+      <span> <i class="icon ion-chevron-left small"></i> <!-- Back --></span>
+    </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content padding="true">
+    <div class="pilot-profile">
+
+      <div class="avatar" style="background-image: url({{pilot.user.avatar}})">
+      </div>
+
+      <div class="row">
+        <div class="center">
+          <h4>{{pilot.user.name}}</h4>
+        </div>
+      </div>
+
+      <div>
+        <a class="send button icon-left ion-chatboxes button-block button-positive" ng-click="createConversation({{ pilot.user_id }})" translate="send_message_label"></a>
+      </div>
+      <hr>
+      <p><strong>{{'position_label' | translate}}:</strong> {{ pilot.profile.position }}</p>
+      <p ng-repeat="x in pilot.crew_member_positions">
+        <strong>{{'position_label' | translate }}:</strong> {{x.position}}<br>
+      </p>
+      <p><strong>{{'birthday_label' | translate}}:</strong> {{ pilot.profile.date_of_birth }}</p>
+      <p><strong>{{'nationality_label' | translate}}:</strong> {{ pilot.profile.nationality_id | objectById:'countries' | translate }}</p>
+      <p><strong>{{'base_airport_label' | translate }} {{'country_label' | translate }}:</strong> {{ pilot.profile.home_airport_country_id | objectById:'countries' | translate }}</p>
+      <!-- <p><strong>Base airport:</strong> {{ pilot.profile.home_airport  }}</p> -->
+
+      <p><strong>{{'contact_phone' | translate }}:</strong> <a ng-href="tel:{{pilot.profile.phone}}">{{ pilot.profile.phone | tel }}</a></p>
+      <p><strong>{{'skype_label' | translate }}:</strong> {{ pilot.profile.skype }}</p>
+      <p><strong>{{'email_label' | translate }}:</strong> <a ng-href="mailto:{{pilot.user.email}}"> {{ pilot.user.email }} </a></p>
+      <p ng-show="pilot.profile.cv_url"><strong>CV url:</strong> <a ng-click="redirectCvUrl()"> {{ pilot.profile.cv_url }} </a></p>
+
+      <!-- <p ng-repeat="x in pilot.language_proficiencies">
+				<strong>Language:</strong> {{ x.language }}<br>
+				<strong>Language level:</strong> {{ x.level }}
+			</p> -->
+
+      <ion-list>
+        <ion-item class="item-stable" ng-click="toggleGroup(showLanguages, 'showLanguages')" ng-class="{active: showLanguages}">
+          <i class="icon" ng-class="showLanguages ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{'languages_label' | translate}}
+
+        </ion-item>
+        <div ng-repeat="x in pilot.language_proficiencies">
+          <p class="item-accordion" ng-show="showLanguages">
+            <strong>{{ 'language_label' | translate }}: </strong> {{ x.language_id | objectById: 'languages' | translate }} <br>
+            <strong>{{ 'lang_level_label' | translate }}: </strong> {{ x.level === 7 ? "native_lang_option" : x.level | translate }} <br>
+          </p>
+        </div>
+
+        <!-- </ion-list> -->
+
+        <div ng-show="licenses_attributes">
+          <ion-item class="item-stable" ng-click="toggleGroup(ShowLicenses,'ShowLicenses')" ng-class="{active: ShowLicenses}">
+            <i class="icon" ng-class="ShowLicenses ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{ 'pilot_licenses_title' | translate }}
+          </ion-item>
+          <div ng-repeat="license in licenses_attributes">
+            <p class="item-accordion" ng-show="ShowLicenses">
+              <strong>{{'pilot_license_type_label' | translate}}: </strong> {{ license.type_of }} <br>
+              <strong>{{'issuing_auth_label' | translate}}: </strong> {{ license.issuance_authority }} <br>
+              <strong>{{'issuing_country_label' | translate}}: </strong> {{ license.issuance_country_id | objectById:'countries' | translate }} <br>
+              <strong>{{'pilot_license_number_label' | translate}}: </strong> {{ license.number }} <br>
+              <strong>{{'date_issue_label' | translate}}: </strong> {{ license.date_of_issue }} <br>
+              <strong>{{'pilot_english_level_1' | translate }} {{'pilot_english_level_2' | translate }} </strong> {{ license.english_proficiency_level }} <br>
+            </p>
+          </div>
+        </div>
+
+
+
+        <div ng-show="pilot.medical">
+          <ion-item class="item-stable" ng-click="toggleGroup( showMedical, 'showMedical' )" ng-class="{active: showMedical}">
+            <i class="icon" ng-class="showMedical ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{'pilot_medical_title' | translate }}
+          </ion-item>
+          <p class="item-accordion" ng-show="showMedical">
+            <strong>{{'pilot_medical_type' | translate }}: </strong> {{ pilot.medical.type_of | translate }} <br>
+            <strong>{{'issuing_auth_label' | translate }}:  </strong> {{ pilot.medical.issuance_authority }} <br>
+            <strong>{{'issuing_country_label' | translate }}: </strong> {{ pilot.medical.issuance_country_id | objectById:'countries' | translate}} <br>
+            <strong>{{'valid_until' | translate }}: </strong> {{ pilot.medical.valid_until }} <br>
+            <!-- <strong>Receive expiration reminder: </strong> {{ pilot.medical.expiration_reminder | yesOrNo }} <br> -->
+          </p>
+        </div>
+
+        <div ng-show="pilot.flight_metrics">
+          <ion-item class="item-stable" ng-click="toggleGroup(showFlightMetrics,'showFlightMetrics')" ng-class="{active: showFlightMetrics}">
+            <i class="icon" ng-class="showFlightMetrics ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{'pilot_flight_hours_title' | translate }}
+          </ion-item>
+          <p class="item-accordion" ng-show="showFlightMetrics">
+            <strong>{{ 'pilot_total_hours_label' | translate }}: </strong> {{ pilot.flight_metrics.flight_hours }} <br>
+            <strong>{{ 'pilot_pic_hours_label' | translate }}: </strong> {{ pilot.flight_metrics.pic_hours }} <br>
+            <strong>{{ 'pilot_sic_hours_label' | translate }}: </strong> {{ pilot.flight_metrics.sic_hours }} <br>
+            <strong>{{ 'pilot_instruments_hours_label' | translate }}: </strong> {{ pilot.flight_metrics.instrument_hours }} <br>
+            <strong>{{ 'pilot_night_hours_label' | translate }}: </strong> {{ pilot.flight_metrics.night_hours }} <br>
+            <strong>{{ 'pilot_single_engine_hours_label' | translate }}: </strong> {{ pilot.flight_metrics.single_engine_hours }} <br>
+            <strong>{{ 'pilot_multi_engine_hours_label' | translate }}: </strong> {{ pilot.flight_metrics.multi_engine_hours }} <br>
+            <strong>{{ 'pilot_turbo_prop_hours_label' | translate }}: </strong> {{ pilot.flight_metrics.turbo_prop_hours }} <br>
+            <strong>{{ 'pilot_jet_hours_label' | translate }}: </strong> {{ pilot.flight_metrics.jet_hours }} <br>
+            <strong>{{'additional_info_label' | translate}}: </strong> {{ pilot.special_operations_metrics.additional_information }} <br>
+
+          </p>
+        </div>
+        <div ng-show="pilot.special_operations_metrics">
+          <ion-item class="item-stable" ng-click="toggleGroup(ShowSpecialOperationMetrics,'ShowSpecialOperationMetrics')" ng-class="{active: ShowSpecialOperationMetrics}">
+            <i class="icon" ng-class="ShowSpecialOperationMetrics ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{ 'pilot_special_oper_hours_title' | translate }}
+          </ion-item>
+          <p class="item-accordion" ng-show="ShowSpecialOperationMetrics">
+            <strong>{{ 'pilot_aerial_hours' | translate }} {{ 'pilot_aerial_hours_2' | translate }}: </strong> {{ pilot.special_operations_metrics.aerial_application_hours }} <br>
+            <strong>{{ 'pilot_fire_hours' | translate }} {{ 'pilot_fire_hours_2' | translate }}: </strong> {{ pilot.special_operations_metrics.fire_fighting_hours }} <br>
+            <strong>{{ 'pilot_banner_hours' | translate }} {{ 'pilot_banner_hours_2' | translate }}: </strong> {{ pilot.special_operations_metrics.banner_towing_hours }} <br>
+            <strong>{{ 'pilot_bush_hours' | translate }} {{ 'pilot_bush_hours_2' | translate }}: </strong> {{ pilot.special_operations_metrics.bush_flying_hours }} <br>
+            <strong>{{ 'pilot_pipeline_hours' | translate }} {{ 'pilot_pipeline_hours_2' | translate }}: </strong> {{ pilot.special_operations_metrics.pipeline_patrol_hours }} <br>
+            <strong>{{ 'pilot_photography_hours' | translate }} {{ 'pilot_photography_hours_2' | translate }}: </strong> {{ pilot.special_operations_metrics.sightseeing_hours }} <br>
+            <strong>{{ 'pilot_military_hours' | translate }} {{ 'pilot_military_hours_2' | translate }}: </strong> {{ pilot.special_operations_metrics.police_hours }} <br>
+          </p>
+        </div>
+        <div ng-show="pilot.type_ratings">
+          <ion-item class="item-stable" ng-click="toggleGroup(showTypeRatings,'showTypeRatings')" ng-class="{active: showTypeRatings}">
+            <i class="icon" ng-class="showTypeRatings ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{ 'pilot_rating_title' | translate }}
+          </ion-item>
+          <div ng-repeat="type_rating in pilot.type_ratings">
+            <p class="item-accordion" ng-show="showTypeRatings">
+              <strong>{{ 'aircraft_label' | translate }}: </strong> {{ type_rating.aircraft_id | aircraftById: 'aircrafts' : aircrafts }} <br>
+              <strong>{{ 'pilot_last_flown_label' | translate }}: </strong> {{ type_rating.last_flown_on }} <br>
+              <strong>{{ 'pilot_aircraft_time_label' | translate }}: </strong> {{ type_rating.time_in_aircraft }} <br>
+              <strong>{{ 'pilot_pic_hours_label' | translate }}: </strong> {{ type_rating.pic_hours }} <br>
+              <strong>{{ 'pilot_sic_hours_label' | translate }}: </strong> {{ type_rating.sic_hours }} <br>
+              <strong>{{ 'pilot_current_till_label' | translate }}: </strong> {{ type_rating.current_till }} <br>
+              <strong>{{'pilot_part_135_label' | translate }}: </strong> {{ type_rating.part_135 | yesOrNo }} <br>
+            </p>
+          </div>
+        </div>
+        <div ng-show="pilot.international_experiences">
+          <ion-item class="item-stable" ng-click="toggleGroup(showInternationalExperiences,'showInternationalExperiences')" ng-class="{active: showInternationalExperiences}">
+            <i class="icon" ng-class="showInternationalExperiences ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{'international_experience_title' | translate }}
+          </ion-item>
+          <p class="item-accordion" ng-show="showInternationalExperiences">
+            <strong>{{'africa_experience' | translate }}: </strong> {{ pilot.international_experiences.africa | yesOrNo }} <br>
+            <strong>{{'asia_experience' | translate }}: </strong> {{ pilot.international_experiences.asia | yesOrNo }} <br>
+            <strong>{{'australia_experience' | translate }}: </strong> {{ pilot.international_experiences.australia | yesOrNo }} <br>
+            <strong>{{'caribbean_experience' | translate }}: </strong> {{ pilot.international_experiences.caribbean | yesOrNo }} <br>
+            <strong>{{'central_america_experience' | translate }}: </strong> {{ pilot.international_experiences.central_america | yesOrNo }} <br>
+            <strong>{{'eastern_europe_experience' | translate }}: </strong> {{ pilot.international_experiences.eastern_europe | yesOrNo }} <br>
+            <strong>{{'europe_experience' | translate }}: </strong> {{ pilot.international_experiences.europe | yesOrNo }} <br>
+            <strong>{{'india_experience' | translate }}: </strong> {{ pilot.international_experiences.india | yesOrNo }} <br>
+            <strong>{{'middle_east_experience' | translate }}: </strong> {{ pilot.international_experiences.middle_east | yesOrNo }} <br>
+            <strong>{{'north_america_experience' | translate }}: </strong> {{ pilot.international_experiences.north_america | yesOrNo }} <br>
+            <strong>{{'south_america_experience' | translate }}: </strong> {{ pilot.international_experiences.south_america | yesOrNo }} <br>
+            <strong>{{'oceanic_experience' | translate }}: </strong> {{ pilot.international_experiences.oceanic_crossings | yesOrNo }} <br>
+            <strong>{{'pacific_experience' | translate }}: </strong> {{ pilot.international_experiences.pacific_crossings | yesOrNo }} <br>
+            <strong>{{'additional_info_label' | translate }}: </strong> {{ pilot.international_experiences.int_additional_info }} <br>
+          </p>
+        </div>
+
+        <div ng-show="pilot.professional_experience">
+          <ion-item class="item-stable" ng-click="toggleGroup(showProfessionalExperience,'showProfessionalExperience')" ng-class="{active: showProfessionalExperience}">
+            <i class="icon" ng-class="showProfessionalExperience ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{'professional_experience_title' | translate}}
+          </ion-item>
+          <div>
+            <p class="item-accordion" ng-show="showProfessionalExperience">
+              <strong>{{'training_certification_label' | translate }}: </strong> {{ pilot.professional_experience.training_certification }} <br>
+              <strong>{{'issuing_country_label' | translate }}: </strong> {{ pilot.professional_experience.issuance_country_id | objectById: 'countries' | translate }} <br>
+              <strong>{{'issuing_auth_label' | translate }}: </strong> {{ pilot.professional_experience.issuance_authority }} <br>
+              <span ng-show="pilot.professional_experience.food_preparation != null"><strong>{{'food_preparation_label' | translate }}: </strong> {{ pilot.professional_experience.food_preparation? 'Yes' : 'No' }} <br></span>
+              <strong>{{'about_me_label' | translate }}: </strong> {{ pilot.professional_experience.about_me }} <br>
+            </p>
+          </div>
+        </div>
+
+        <div ng-show="pilot.aircraft_experiences">
+          <ion-item class="item-stable" ng-click="toggleGroup(showAircraftExperiences,'showAircraftExperiences')" ng-class="{active: showAircraftExperiences}">
+            <i class="icon" ng-class="showAircraftExperiences ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{'aircraft_experiences_label' | translate }}
+          </ion-item>
+          <div ng-repeat="e in pilot.aircraft_experiences">
+            <p class="item-accordion" ng-show="showAircraftExperiences">
+              <strong>{{'aircraft_label' | translate }}: </strong> {{ e.aircraft_id | objectById: 'aircrafts'}}
+            </p>
+          </div>
+        </div>
+
+        <div ng-show="pilot.passports">
+          <ion-item class="item-stable" ng-click="toggleGroup(showPassports,'showPassports')" ng-class="{active: showPassports}">
+            <i class="icon" ng-class="showPassports ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{ 'passport_title' | translate }}
+          </ion-item>
+          <div ng-repeat="passport in pilot.passports">
+            <p class="item-accordion" ng-show="showPassports">
+              <!-- <strong>Country: </strong> {{ passport.country_id | objectById:'countries' | translate }} <br> -->
+              <strong>{{'country_issue' | translate}}: </strong> {{ passport.country_of_issue_id | objectById:'countries' | translate }} <br>
+              <strong>{{'date_issue_label' | translate }}: </strong> {{ passport.issued_on | date:'MMMM dd, yyyy' }} <br>
+              <strong>{{'expiration_date' | translate }}: </strong> {{ passport.expires_on | date:'MMMM dd, yyyy' }} <br>
+            </p>
+          </div>
+        </div>
+        <div ng-show="pilot.visas">
+          <ion-item class="item-stable" ng-click="toggleGroup(showVisas,'showVisas')" ng-class="{active: showVisas}">
+            <i class="icon" ng-class="showVisas ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{'visa_title' | translate }}
+          </ion-item>
+          <div ng-repeat="visa in pilot.visas">
+            <p class="item-accordion" ng-show="showVisas">
+              <strong>{{'country_label' | translate }}: </strong> {{ visa.country_id | objectById:'countries' | translate }} <br>
+              <strong>{{'date_issue_label' | translate }}: </strong> {{ visa.issued_on | date:'MMMM dd, yyyy' }} <br>
+              <strong>{{'expiration_date' | translate }}: </strong> {{ visa.expires_on | date:'MMMM dd, yyyy' }} <br>
+              <strong ng-show="visa.additional_information !=''">{{'additional_info_label' | translate}}: </strong> {{ visa.additional_information
+              }} <br>
+
+            </p>
+          </div>
+        </div>
+        <div ng-show="pilot.availability">
+          <ion-item class="item-stable" ng-click="toggleGroup(ShowAvailability,'ShowAvailability')" ng-class="{active: ShowAvailability}">
+            <i class="icon" ng-class="ShowAvailability ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{'availability_title' | translate }}
+          </ion-item>
+          <p class="item-accordion" ng-show="ShowAvailability && pilot.user.role=='pilot'">
+            <strong>{{'pilot_freelancer_label' | translate }}: </strong> {{ pilot.availability.freelancer | yesOrNo }} <br>
+            <span ng-show="pilot.availability.price_per_day"><strong>{{'pilot_price_label' | translate }}: </strong> {{ pilot.availability.price_per_day }} <br></span>
+            <strong>{{'pilot_ferry_label' | translate }}: </strong> {{ pilot.availability.ferry_flights | yesOrNo }} <br>
+            <strong>{{'pilot_seeking_label' | translate }}: </strong> {{ pilot.availability.seeking_employment | yesOrNo }} <br>
+            <strong>{{'pilot_voluntary_label' | translate }}: </strong> {{ pilot.availability.voluntary | yesOrNo }} <br>
+            <strong>{{'other_label' | translate }}: </strong> {{ pilot.availability.other | yesOrNo }} <br>
+            <span ng-show="pilot.availability.price_per_day"><strong>{{'additional_info_label' | translate }}: </strong> {{ pilot.availability.availability_additional_info }} <br></span>
+          </p>
+          <p class="item-accordion" ng-show="ShowAvailability && pilot.user.role!='pilot'">
+            <strong>{{'pilot_freelancer_label' | translate }}: </strong> {{ pilot.availability.freelancer | yesOrNo }} <br>
+            <strong>{{'full_time_label' | translate }}: </strong> {{ pilot.availability.full_time | yesOrNo }} <br>
+            <strong>{{'part_time_label' | translate }}: </strong> {{ pilot.availability.part_time | yesOrNo }} <br>
+            <strong>{{'other_label' | translate }}: </strong> {{ pilot.availability.other | yesOrNo }} <br>
+            <span ng-show="pilot.availability.price_per_day"><strong>{{'additional_info_label' | translate }}: </strong> {{ pilot.availability.availability_additional_info }} <br></span>
+          </p>
+        </div>
+        <ion-item class="item-stable" ng-click="toggleGroup(showUnavailableDays, 'showUnavailableDays')" ng-class="{active: showUnavailableDays}">
+          <i class="icon" ng-class="showUnavailableDays ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{'unavailable_days_title' | translate }}
+          <!-- <i class="icon ion-edit pull-right"></i> -->
+        </ion-item>
+
+        <div ng-repeat="unavailable_day in datesRanges">
+          <p class="item-accordion" ng-show="showUnavailableDays">
+            <strong>{{'from_label' | translate }}: </strong> {{ unavailable_day.from | date:'MMMM dd, yyyy' }} <br>
+            <strong>{{'to_label' | translate }}: </strong> {{ unavailable_day.to | date:'MMMM dd, yyyy' }} <br>
+          </p>
+        </div>
+      </ion-list>
+
+
+      <div>
+        <a class="button icon-left ion-chatboxes button-block button-positive" ng-click="createConversation({{ pilot.user_id }})" translate="send_message_label"></a>
+      </div>
+    </div>
+  </ion-content>
+
+</ion-view>

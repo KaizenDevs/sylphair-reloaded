@@ -1,0 +1,6 @@
+[
+	{"name":"airframe_option","value":"airframe"},
+	{"name":"power_plant_option","value":"power plan"},
+	{"name":"avionic_option","value":"avionic"},
+	{"name":"sheet_metal_option","value":"sheet metal"}
+]

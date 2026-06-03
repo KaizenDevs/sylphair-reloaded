@@ -1,0 +1,6 @@
+[
+	{"value":"M","name": "male_option"},
+	{"value":"F","name": "female_option"},
+	{"value":"OTHER","name": "other_label"},
+	{"value":"NO","name": "dont_specify_option"}
+]

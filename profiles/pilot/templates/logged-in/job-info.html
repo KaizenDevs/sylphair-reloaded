@@ -1,0 +1,79 @@
+<ion-view name="job-information-view" view-title="{{'job_info_label' | translate}}">
+  <ion-nav-bar class="bar-dark-light">
+    <ion-nav-back-button></ion-nav-bar-back-button>
+  </ion-nav-bar>
+  <ion-content padding="true">
+
+    <div class="pilot-profile m-t-1 item no-border applicants-container" ng-show="job.applicants.length > 0 && showEditButton">
+
+      <h2 class="text-center" translate="applicants_label"></h2>
+      <br>
+      <div class="list">
+        <a ng-repeat="applicant in job.applicants" class="item item-avatar ion-arrow-right-c gray" href="#/app-aom/{{role_url}}s/{{applicant.role_id}}">
+
+          <img ng-src="{{applicant.avatar || 'img/default-user-image.png'}}" alt="" onerror="this.src='img/default-user-image.png'">
+          <h3 class="dim-gray">{{applicant.name + ' ' + applicant.last_name}}</h3>
+          <p class="dim-gray">{{applicant.role_position}}</p>
+        </a>
+      </div>
+      <br>
+    </div>
+
+    <div class="pilot-profile m-t-1 item no-border">
+      <p ng-show="job.position && job.job_type!=='mechanic job'"><strong>{{'position_label' | translate}}:</strong> {{ job.position }}</p>
+      <div ng-repeat="x in job.job_positions">
+        <p><strong>Position:</strong> {{x.position}}</p>
+      </div>
+      <p ng-show="job.aircraft_id"><strong>{{'aircraft_label' | translate}}:</strong> {{ job.aircraft_id | aircraftById:'aircrafts' : aircrafts }}</p>
+      <p ng-show="job.contract_type"><strong>{{'contract_type_label' | translate}}:</strong> {{ job.contract_type }}</p>
+      <p ng-show="job.time_on_type"><strong>{{'pilot_aircraft_time_label' | translate}}:</strong> {{ job.time_on_type }}</p>
+      <p ng-show="job.country_id"><strong>{{'location_label' | translate}}:</strong> {{ job.country_id | objectById:'countries' | translate }}</p>
+      <p ng-show="job.start_date"><strong>{{'start_date_label' | translate}}:</strong> {{ job.start_date }}</p>
+      <p ng-show="job.end_date"><strong>{{'end_date_label' | translate}}:</strong> {{ job.end_date }}</p>
+      <p ng-show="job.monthly_salary"><strong>{{'monthly_salary_label' | translate}}:</strong> {{ job.monthly_salary | currency }}</p>
+      <!-- <p ng-show="showEditButton"><strong>Publication days:</strong> {{job.days_active }} </p> -->
+      <div ng-show="job.allowance">
+        <br>
+        <hr><br>
+        <p><strong>{{'allowance_info_label' | translate}}:</strong></p>
+        <p><strong>{{'travel_label' | translate}}:</strong> {{ job.allowance.transportation | yesOrNo }}</p>
+        <p><strong>{{'education_label' | translate }}:</strong> {{ job.allowance.education | yesOrNo }}</p>
+        <p><strong>{{'housing_label' | translate}}:</strong> {{ job.allowance.housing | yesOrNo }}</p>
+        <p><strong>{{'other_label' | translate}}:</strong> {{ job.allowance.other | yesOrNo }}</p>
+        <p ng-show="job.allowance.description"><strong>{{'description_label' | translate}}:</strong> {{ job.allowance.description }}</p>
+      </div>
+      <div ng-show="job.crew_member_details">
+        <br>
+        <hr><br>
+        <p><strong>{{'gender_label' | translate}}:</strong> {{job.crew_member_details.gender | gender}}</p>
+        <p ng-show="job.crew_member_details.food_preparation != null"><strong>{{'food_preparation_label' | translate}}:</strong> {{job.crew_member_details.food_preparation? 'Yes' : 'No'}}</p>
+        <p ng-show="job.crew_member_details.qualification_request"><strong>{{'qualification_request_label' | translate }}:</strong> {{job.crew_member_details.qualification_request}}</p>
+        <p ng-show="job.crew_member_details.mechanic_description"><strong>{{'mechanic_desc_label' | translate}}:</strong> {{job.crew_member_details.mechanic_description}}</p>
+        <p ng-show="job.crew_member_details.roster != null"><strong>{{'roster_label' | translate }}:</strong> {{job.crew_member_details.roster? 'Yes' : 'No'}} </p>
+        <div ng-show="job.crew_member_details.skills">
+          <br>
+          <hr><br>
+          <p><strong>{{'skills_label' | translate }}:</strong> {{job.crew_member_details.skills}}</p>
+        </div>
+      </div>
+
+      <div ng-show="job.language_proficiencies_attributes.length > 0">
+        <br>
+        <hr><br>
+        <h3>{{'required_lang_label' | translate }}:</h3>
+        <div ng-repeat="x in job.language_proficiencies_attributes">
+          <p><strong>{{'language_label' | translate}}:</strong> {{ x.language_id | objectById: 'languages' | translate }}</p>
+          <p><strong>{{'lang_level_label' | translate}}:</strong> {{ x.level === 7 ? "native_lang_option" : x.level | translate }}</p>
+        </div>
+      </div>
+
+      <button ng-show="showApplyButton" ng-hide="showEditButton || alReadyApplied" ng-hide="view" ng-click="apply()" class="button button-block button-positive" translate="apply_label"></button>
+      <button ng-show="showEditButton" ng-hide="showApplyButton" ng-click="goToEdit()" class="button button-block button-positive" translate="edit_btn"></button>
+      <div ng-show="alReadyApplied">
+        <p class="dim-gray ended">
+          <strong translate="already_applied_label"></strong>
+        </p>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
