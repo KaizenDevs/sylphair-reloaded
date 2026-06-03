@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width, height=device-height, viewport-fit=cover">
+
+  <meta http-equiv="Content-Security-Policy">
+  <title>sylphair</title>
+
+  <link rel="manifest" href="manifest.json">
+
+  <!-- compiled css output -->
+  <link href="css/ionic.app.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
+  <!-- ionic/angularjs js -->
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
+  <script src="lib/ionic/js/angular/angular-resource.min.js"></script>
+  <script src="lib/ionic-multi-date-picker/dist/ionic-multi-date-picker.bundle.min.js"></script>
+
+  <!-- angular translate -->
+  <script src="languages/english.js"></script>
+  <script src="languages/chinese.js"></script>
+  <script src="languages/spanish.js"></script>
+  <script src="lib/angular-translate/dist/angular-translate.js"></script>
+
+  <!-- sentry libraries -->
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>-->
+  <!-- <script src="lib/raven/raven.min.js" crossorigin="anonymous"></script> -->
+  <script src="lib/raven-js/dist/raven.js"></script>
+  <script src="lib/raven-js/dist/plugins/angular.js"></script>
+  <script>
+    /* Sentry DSN removed — configure via environment */
+    if (window.SENTRY_DSN) {
+      Raven.config(window.SENTRY_DSN).addPlugin(Raven.Plugins.Angular).install();
+    }
+</script>
+
+
+  <!-- cordova script (this will be a 404 during development) -->
+  <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+  <script src="cordova.js"></script>
+  <script src="lib/angular-local-storage/dist/angular-local-storage.min.js"></script>
+  <script src="lib/pusher-websocket-iso/dist/web/pusher.min.js"></script>
+  <script src="lib/angular-messages/angular-messages.min.js"></script>
+  <script src="lib/pusher-angular/lib/pusher-angular.min.js"></script>
+  <script src="lib/moment/min/moment.min.js"></script>
+  <script src="lib/ng-lodash/build/ng-lodash.min.js"></script>
+
+  <!-- your app's js -->
+  <script src="js/app.js"></script>
+  <script src="js/app.routes.js"></script>
+  <script src="js/app.config.js"></script>
+  <script src="js/app.controller.js"></script>
+  <script src="js/app.services.js"></script>
+  <script src="js/app.api-services.js"></script>
+  <script src="js/app.routing-services.js"></script>
+  <script src="js/app.filters.js"></script>
+  <script src="js/app.constants.js"></script>
+
+  <script src="js/controllers/login.js"></script>
+  <script src="js/controllers/registration.js"></script>
+  <script src="js/controllers/edit-user.js"></script>
+  <script src="js/controllers/loading.js"></script>
+  <script src="js/controllers/messages.js"></script>
+
+  <script src="profiles/pilot/pilot.routes.js"></script>
+  <script src="profiles/pilot/pilot.service.js"></script>
+  <script src="profiles/pilot/controllers/create/profile.js"></script>
+  <script src="profiles/pilot/controllers/create/licences.js"></script>
+  <script src="profiles/pilot/controllers/create/medical.js"></script>
+  <script src="profiles/pilot/controllers/create/flight-hours.js"></script>
+  <script src="profiles/pilot/controllers/create/international-experience.js"></script>
+  <script src="profiles/pilot/controllers/create/passport.js"></script>
+  <script src="profiles/pilot/controllers/create/visa.js"></script>
+  <script src="profiles/pilot/controllers/create/availability.js"></script>
+  <script src="profiles/pilot/controllers/create/type-rating.js"></script>
+  <script src="profiles/pilot/controllers/create/unavailability.js"></script>
+  <script src="profiles/pilot/controllers/create/finish-registration.js"></script>
+
+  <script src="profiles/pilot/controllers/edit/profile.js"></script>
+  <script src="profiles/pilot/controllers/edit/finish-registration.js"></script>
+
+  <script src="profiles/pilot/controllers/logued-in/job-search.js"></script>
+  <script src="profiles/pilot/controllers/logued-in/job-results.js"></script>
+  <script src="profiles/pilot/controllers/logued-in/job-info.js"></script>
+  <script src="profiles/pilot/controllers/logued-in/my-profile.js"></script>
+  <script src="profiles/pilot/controllers/logued-in/home.js"></script>
+  <script src="profiles/pilot/controllers/logued-in/jobs-applied.js"></script>
+
+  <!-- <script src="js/controllers/create-aom/index.js"></script> -->
+  <script src="profiles/aom/controllers/create/finish-registration.js"></script>
+
+  <script src="profiles/aom/aom.routes.js"></script>
+  <script src="profiles/aom/aom.service.js"></script>
+  <script src="profiles/aom/controllers/logued-in/welcome.js"></script>
+  <script src="profiles/aom/controllers/logued-in/pilot-search.js"></script>
+  <script src="profiles/aom/controllers/logued-in/pilot-results.js"></script>
+  <script src="profiles/aom/controllers/logued-in/pilot-info.js"></script>
+  <script src="profiles/aom/controllers/logued-in/my-profile.js"></script>
+  <script src="profiles/aom/controllers/logued-in/create-pilot-job.js"></script>
+  <script src="profiles/aom/controllers/logued-in/create-flight-attendant-job.js"></script>
+  <script src="profiles/aom/controllers/logued-in/create-mechanic-job.js"></script>
+  <script src="profiles/aom/controllers/logued-in/jobs-created.js"></script>
+  <script src="profiles/aom/controllers/logued-in/edit-pilot-job.js"></script>
+  <script src="profiles/aom/controllers/logued-in/edit-mechanic-job.js"></script>
+  <script src="profiles/aom/controllers/logued-in/edit-flight-attendant-job.js"></script>
+
+  <script src="profiles/mechanic/mechanic.routes.js"></script>
+  <script src="profiles/mechanic/mechanic.service.js"></script>
+  <script src="profiles/mechanic/controllers/logued-in/my-profile.js"></script>
+  <script src="profiles/mechanic/controllers/logued-in/home.js"></script>
+  <script src="profiles/mechanic/controllers/logued-in/jobs-applied.js"></script>
+
+  <script src="profiles/mechanic/controllers/edit/all-form-steps.js"></script>
+  <script src="profiles/mechanic/controllers/edit/finish-registration.js"></script>
+
+  <script src="profiles/mechanic/controllers/create/profile.js"></script>
+  <script src="profiles/mechanic/controllers/create/passport.js"></script>
+  <script src="profiles/mechanic/controllers/create/visa.js"></script>
+  <script src="profiles/mechanic/controllers/create/availability.js"></script>
+  <script src="profiles/mechanic/controllers/create/international-experience.js"></script>
+  <script src="profiles/mechanic/controllers/create/professional-experience.js"></script>
+  <script src="profiles/mechanic/controllers/create/unavailability.js"></script>
+  <script src="profiles/mechanic/controllers/create/finish-registration.js"></script>
+
+
+  <script src="profiles/flight-attendant/flight-attendant.routes.js"></script>
+  <script src="profiles/flight-attendant/flight-attendant.service.js"></script>
+  <script src="profiles/flight-attendant/controllers/logued-in/my-profile.js"></script>
+  <script src="profiles/flight-attendant/controllers/logued-in/home.js"></script>
+  <script src="profiles/flight-attendant/controllers/logued-in/jobs-applied.js"></script>
+
+  <script src="profiles/flight-attendant/controllers/edit/all-form-steps.js"></script>
+  <script src="profiles/flight-attendant/controllers/edit/finish-registration.js"></script>
+
+  <script src="profiles/flight-attendant/controllers/create/profile.js"></script>
+  <script src="profiles/flight-attendant/controllers/create/passport.js"></script>
+  <script src="profiles/flight-attendant/controllers/create/visa.js"></script>
+  <script src="profiles/flight-attendant/controllers/create/availability.js"></script>
+  <script src="profiles/flight-attendant/controllers/create/international-experience.js"></script>
+  <script src="profiles/flight-attendant/controllers/create/professional-experience.js"></script>
+  <script src="profiles/flight-attendant/controllers/create/unavailability.js"></script>
+  <script src="profiles/flight-attendant/controllers/create/finish-registration.js"></script>
+
+  <!-- demo mock — intercepts API calls with fixture data -->
+  <script src="js/mock/mock.module.js"></script>
+  <script src="js/mock/mock.data.js"></script>
+  <script src="js/mock/mock.backend.js"></script>
+</head>
+
+<body ng-app="sylphairApp" ng-controller="sylphairController">
+  <ion-nav-view>
+    <div id="in-app-alert-container">
+      <in-app-alert></in-app-alert>
+    </div>
+  </ion-nav-view>
+</body>
+
+</html>

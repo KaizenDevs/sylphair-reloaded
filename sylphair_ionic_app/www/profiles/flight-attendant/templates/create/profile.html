@@ -1,0 +1,117 @@
+<ion-view name="create-pilot-1-view" view-title="{{ 'flight_attendant_profile_title' | translate }}">
+  <ion-nav-bar class="bar-dark-light">
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+    </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button ng-show="showCancelEdit" ng-click="cancelEdit()" class="button-cancel-edit">
+          <span translate="cancel_label"></span>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content padding="true">
+    <div class="list" ng-repeat="profile in createFlightAttendant.profile track by $index">
+
+      <label class="item item-input item-select down" ng-click="goDown()">
+      <div class="input-label" translate="position_label"></div>
+      <select ng-model="profile.position" ng-options="position.value as position.name | translate for position in flight_attendant_position" ng-change="simpleSave.save('{{currentKey}}.profile.{{$index}}.position', profile.position)">
+      </select>
+    </label>
+
+      <label class="item item-input item-select">
+      <div class="input-label" translate="gender_label"></div>
+      <select ng-model="profile.gender" ng-options="gender.value as gender.name | translate for gender in genders" ng-change="simpleSave.save('{{currentKey}}.profile.{{$index}}.gender', profile.gender)">
+      </select>
+    </label>
+
+      <label class="item item-input item-input-date">
+      <div class="input-label" translate="birthday_label"></div>
+      <input class="input-date" type="date" ng-model="profile.date_of_birth" ng-change="simpleSave.save('{{currentKey}}.profile.{{$index}}.date_of_birth', profile.date_of_birth)">
+    </label>
+
+      <label class="item item-input item-select">
+      <div class="input-label" translate="nationality_label"></div>
+      <select ng-model="profile.nationality_id" ng-options="country.id as country.name | translate for country in countries" ng-change="simpleSave.save('{{currentKey}}.profile.{{$index}}.nationality_id', profile.nationality_id )">
+      </select>
+    </label>
+
+      <label class="item item-input">
+      <div class="input-label" translate="height_label"></div>
+      <input class="right-placeholder" type="number" placeholder="{{'no_spaces_placeholder' | translate }}" ng-model="profile.height" ng-change="simpleSave.save('{{currentKey}}.profile.{{$index}}.height', profile.height )">
+    </label>
+
+      <label class="item item-input item-select">
+      <div class="input-label">
+        <span translate="airport_label"></span><br>
+        <span translate="country_label"></span>
+      </div>
+      <select ng-model="profile.home_airport_country_id" ng-options="country.id as country.name | translate for country in countries | orderBy:country.name" ng-change="simpleSave.save('{{currentKey}}.profile.{{$index}}.home_airport_country_id', profile.home_airport_country_id )">
+      </select>
+    </label>
+
+      <label class="item item-input">
+      <div class="input-label">
+        <span translate="airport_label"></span><br>
+        <span translate="name_label"></span>
+      </div>
+      <input class="right-placeholder" type="text" ng-model="profile.home_airport" ng-change="simpleSave.save('{{currentKey}}.profile.{{$index}}.home_airport', profile.home_airport )">
+    </label>
+
+      <label class="item item-input item-select">
+      <div class="input-label" translate="phone_code_label"></div>
+      <select ng-model="profile.country_code_id" ng-options="country.id as country.country_code | translate for country in countries | orderBy:country.name" ng-change="simpleSave.save('{{currentKey}}.profile.{{$index}}.country_code_id', profile.country_code_id )">
+      </select>
+    </label>
+
+      <label class="item item-input">
+      <div class="input-label" translate="phone_number_label"></div>
+      <input class="right-placeholder" type="number" placeholder="{{'no_spaces_placeholder' | translate }}" ng-model="profile.phone" ng-change="simpleSave.save('{{currentKey}}.profile.{{$index}}.phone', profile.phone )">
+    </label>
+
+      <label class="item item-input">
+      <div class="input-label" translate="skype_label"></div>
+      <input class="right-placeholder" type="text" ng-model="profile.skype" ng-change="simpleSave.save('{{currentKey}}.profile.{{$index}}.skype', profile.skype )">
+    </label>
+
+      <label class="item item-input">
+      <div class="input-label" translate="cv_url_label"></div>
+      <input class="right-placeholder" placeholder="www.site.me/cv.pdf" type="text" ng-model="profile.cv_url" ng-change="simpleSave.save('{{currentKey}}.profile.{{$index}}.cv_url', profile.cv_url )">
+    </label>
+
+    </div>
+
+    <div class="list">
+      <div ng-repeat="language in createFlightAttendant.language_proficiencies_attributes track by $index" ng-if="!language._destroy">
+        <label class="item item-input item-select">
+        <div class="input-label" translate="language_label"></div>
+        <select name="language" ng-model="language.language_id" ng-options="language.id as language.name | translate for language in languages" ng-change="simpleSave.save('{{currentKey}}.language_proficiencies_attributes.{{$index}}.language_id', language.language_id )" >
+        </select>
+      </label>
+        <label class="item item-input item-select">
+        <div class="input-label" translate="lang_level_label"></div>
+        <select name="language-level" ng-model="language.level"  ng-options="language.id as language.name | translate for language in language_levels" ng-change="simpleSave.save('{{currentKey}}.language_proficiencies_attributes.{{$index}}.level', language.level )">
+        </select>
+      </label>
+        <label class="item  right">
+          <button class="button-like-link" ng-click="nestedObjectHandler.remove( {{$index}},'{{currentKey}}','language_proficiencies_attributes')" translate="remove_lang_label">
+          </button>
+      </label>
+        <br>
+      </div>
+      <label class="item no-border right">
+        <button class="button-like-link" ng-click="nestedObjectHandler.add('{{currentKey}}','language_proficiencies_attributes')" translate="add_lang_label"></button>
+    </label>
+    </div>
+
+  </ion-content>
+
+  <ion-footer-bar align-title="center" class="footer-bar">
+    <div class="row m-0">
+      <div class="col"></div>
+      <div class="col text-center step-count">1/7</div>
+      <div ng-click="vm.validateProfile()" class="col text-right"><a class="button  next icon-right ion-chevron-right" translate="next_label"></a></div>
+    </div>
+  </ion-footer-bar>
+
+</ion-view>

@@ -1,0 +1,6 @@
+[
+	{"value": "aircraft_profile_option","code":"aircraft owner"},
+	{"value": "pilot_profile_option","code":"pilot"},
+	{"value": "mechanic_profile_option","code":"mechanic"},
+	{"value": "flight_attendant_profile_option","code":"flight attendant"}
+]

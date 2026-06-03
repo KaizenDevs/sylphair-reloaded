@@ -1,0 +1,32 @@
+<ion-view name="job-search-view" view-title="{{ 'search_job_label' | translate }}" hide-back-button="true">
+  <ion-nav-buttons side="left">
+    <button ng-click="menu()" class="button button-icon button-clear ion-navicon"  menu-toggle="left">
+    </button>
+  </ion-nav-buttons>
+</ion-nav-bar>
+<ion-content padding="true">
+<div class="list">
+  <label class="item item-input item-select">
+    <div class="input-label" translate="position_label"></div>
+    <select ng-model="search.position" ng-options="position.value as position.name | translate for position in positions">
+		</select>
+  </label>
+  <label class="item item-input item-select">
+    <div class="input-label" translate="contract_type_label"></div>
+		<select ng-model="search.contract_type" ng-options="contract_type.value as contract_type.name | translate for contract_type in contract_types">
+		</select>
+  </label>
+  <label class="item item-input item-select">
+    <div class="input-label" translate="aircraft_label"></div>
+		<select  ng-model="search.aircraft_id" ng-options="aircraft.id as aircraft.name for aircraft in aircrafts">
+		</select>
+  </label>
+  <label class="item item-input item-select">
+    <div class="input-label" translate="location_label"></div>
+		<select ng-model="search.country_id" ng-options="country.id as country.name | translate for country in countries">
+		</select>
+  </label>
+  <button class="button icon-left ion-android-search button-block button-positive" ng-click="doSearch()" translate="search_label"></button>
+</div>
+</ion-content>
+</ion-view>

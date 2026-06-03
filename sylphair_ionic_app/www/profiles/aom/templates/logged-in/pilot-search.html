@@ -1,0 +1,57 @@
+<ion-view name="pilot-search-view" view-title="{{viewTitle | translate }}">
+<ion-nav-bar class="bar-dark-light">
+	<ion-nav-buttons side="left">
+    <button class="button button-icon button-clear ion-navicon"  menu-toggle="left">
+    </button>
+  </ion-nav-buttons>
+</ion-nav-bar>
+
+<ion-content padding="true">
+<div class="list">
+
+  <label class="item item-input item-select" ng-if="search.role!='mechanic'">
+    <div class="input-label" translate="position_label"></div>
+		<select ng-model="search.position" ng-options="position.value as position.name | translate for position in positions">
+		</select>
+  </label>
+  <label class="item item-input" ng-if="search.role=='mechanic'">
+    <span>Positions</span>
+    <div class="input-label filter-mechanic-positions">
+      <ion-checkbox ng-model="mechanicPositions.airframe" >
+        <span>Airframe</span>
+      </ion-checkbox>
+      <ion-checkbox ng-model="mechanicPositions.power_plan">
+        <span>Power plan</span>
+      </ion-checkbox>
+      <ion-checkbox ng-model="mechanicPositions.avionic">
+        <span>Avionic</span>
+      </ion-checkbox>
+      <ion-checkbox ng-model="mechanicPositions.sheet_metal">
+        <span>Sheet metal</span>
+      </ion-checkbox>
+    </div>
+  </label>
+  <label class="item item-input item-select">
+    <div class="input-label" translate="aircraft_label"></div>
+		<select  ng-model="search.aircraft_id" ng-options="aircraft.id as aircraft.name for aircraft in aircrafts">
+		</select>
+  </label>
+  <label class="item item-input item-select">
+    <div class="input-label" translate="location_label"></div>
+    <select ng-model="search.country_id" ng-options="country.id as country.name | translate for country in countries">
+    </select>
+  </label>
+
+	<label class="item item-input">
+		<div class="input-label">
+			  <span translate="minimum_time_label"></span><br>
+        <span translate="on_aircraft_label"></span>
+		</div>
+		<input placeholder="0" ng-model="search.time_on_type" class="right-placeholder" type="number" min="0" ng-maxlength="15" inputmode="numeric" pattern="[0-9]*">
+
+  </label>
+
+  <button class="button icon-left ion-android-search button-block button-positive" ng-click="doSearch()" translate="search_label"></button>
+</div>
+</ion-content>
+</ion-view>

@@ -1,0 +1,62 @@
+<ion-view name="create-pilot-5-view" view-title="{{ 'availability_title' | translate }}">
+  <ion-nav-bar class="bar-dark-light">
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+    </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button ng-show="showCancelEdit" ng-click="cancelEdit()" class="button-cancel-edit">
+          <span translate="cancel_label"></span>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content padding="true">
+    <div class="list" ng-repeat="availability in createPilot.availability track by $index">
+      <label class="item item-input clean">
+		    <ion-checkbox ng-model="availability.freelancer" ng-change="simpleSave.save('{{currentKey}}.availability.{{$index}}.freelancer', availability.freelancer)">
+          <span translate="pilot_freelancer_label"></span>  
+        </ion-checkbox>
+		  </label>
+      <label class="item item-input" ng-show="availability.freelancer">
+		    <div class="input-label" translate="pilot_price_label"></div>
+		    <input class="right-placeholder" ng-model="availability.price_per_day" ng-change="simpleSave.save('{{currentKey}}.availability.{{$index}}.price_per_day', availability.price_per_day)" placeholder="I.E: 1000" type="number" min="0" ng-maxlength="10" inputmode="numeric" pattern="[0-9]*">
+		  </label>
+      <label class="item item-input clean">
+		    <ion-checkbox ng-model="availability.ferry_flights" ng-change="simpleSave.save('{{currentKey}}.availability.{{$index}}.ferry_flights', availability.ferry_flights)">
+          <span translate="pilot_ferry_label"></span>  
+        </ion-checkbox>
+		  </label>
+      <label class="seeking item item-input clean">
+		    <ion-checkbox ng-model="availability.seeking_employment" ng-change="simpleSave.save('{{currentKey}}.availability.{{$index}}.seeking_employment', availability.seeking_employment)">
+          <span translate="pilot_seeking_label"></span>  
+        </ion-checkbox>
+		  </label>
+      <label class="item item-input clean">
+		    <ion-checkbox ng-model="availability.voluntary" ng-change="simpleSave.save('{{currentKey}}.availability.{{$index}}.voluntary', availability.voluntary)">
+          <span translate="pilot_voluntary_label"></span>  
+        </ion-checkbox>
+		  </label>
+      <label class="item item-input clean">
+		    <ion-checkbox ng-model="availability.other" ng-change="simpleSave.save('{{currentKey}}.availability.{{$index}}.other', availability.other)">
+          <span translate="other_label"></span>  
+        </ion-checkbox>
+		  </label>
+      <label class="item item-input item-stacked-label">
+		    <span class="input-label">
+          <span translate="additional_info_label"></span>
+          <span ng-show="!availability.other" translate="optional_label"> </span>
+          <span ng-show="availability.other" translate="required_label"></span>
+        </span>
+		    <textarea  ng-model="availability.availability_additional_info" ng-change="simpleSave.save('{{currentKey}}.availability.{{$index}}.availability_additional_info', availability.availability_additional_info)" placeholder="{{ 'additional_experience_placeholder' | translate }}" rows="6"></textarea>
+		  </label>
+    </div>
+  </ion-content>
+  <ion-footer-bar align-title="center" class="footer-bar">
+    <div class="row m-0">
+      <div class="row m-0">
+      <div class="col"><a href="{{backURL}}" class="button next ion-chevron-left"> {{ 'back_label' | translate }}</a></div>
+      <div class="col text-center step-count">9/10</div>
+      <div ng-click="vm.validateAvailability()" class="col text-right"><a class="button  next  icon-right ion-chevron-right" translate="next_label"></a></div>
+    </div>
+  </ion-footer-bar>
+</ion-view>

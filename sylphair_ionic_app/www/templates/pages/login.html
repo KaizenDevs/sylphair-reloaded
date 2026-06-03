@@ -1,0 +1,83 @@
+<ion-view name="login-view">
+  <ion-content>
+    <div class="list">
+      <div class="item-image start-logo">
+        <img ng-src="img/sylphair-aviation-logo-over-white.png">
+      </div>
+    </div>
+
+    <form name="loginForm" id="loginForm" ng-submit="doLogin(loginForm)">
+      <div class="list list-inset spacy">
+        <label class="item item-input">
+          <span class="input-label" translate="email_label"></span>
+          <input type="email" ng-model="loginData.email" name="email" required>
+        </label>
+        <label class="item item-input">
+          <span class="input-label" translate="password_label"></span>
+          <input type="password" ng-model="loginData.password" name="password" minlength="8" ng-maxlength="20" required>
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Demo Role</span>
+          <select ng-model="loginData.demo_role" style="border:none;background:transparent;width:100%;">
+            <option value="pilot">Pilot</option>
+            <option value="aircraft owner">Aircraft Owner (AOM)</option>
+            <option value="mechanic">Mechanic</option>
+            <option value="flight attendant">Flight Attendant</option>
+          </select>
+        </label>
+        <label class="item clean">
+          <button class="button button-block button-positive" type="submit" translate="login_btn"></button>
+        </label>
+      </div>
+
+			<div ng-messages="loginForm.email.$error" style="color:maroon" role="alert" ng-show="loginForm.email.$touched">
+				<div ng-message="email" translate="email_error_msg"></div>
+	  	</div>
+
+			<div ng-messages="loginForm.password.$error" style="color:maroon" role="alert" ng-show="loginForm.password.$touched">
+				<div ng-message="minlength" translate="login_short_password_msg"></div>
+		    <div ng-message="maxlength" translate="login_long_password_msg"></div>
+	  	</div>
+
+    </form>
+
+    <div class="row">
+      <div class="col">
+        <p>
+          <a ng-click="openModal()" translate="forgot_password_msg"></a>
+        </p>
+      </div>
+    </div>
+
+  </ion-content>
+    <div ng-if="activateLanguages" style="position: absolute; left: 1.2em; top: 1em; display: flex;">
+      <button-lang-en ng-click="changeLanguage('en')"></button-lang-en>
+      <button-lang-sp ng-click="changeLanguage('sp')" style="margin-left: 20px"></button-lang-zh>
+    </div>
+    <ion-footer-bar align-title="center" class="bar-have-account">
+      <p class="footer-text"><small translate="no_account_msg"></small> <a href="#/start" translate="register_btn"></a></p>
+    </ion-footer-bar>
+
+</ion-view>
+
+<script id="reset-password.html" type="text/ng-template">
+  <ion-modal-view>
+    <ion-header-bar>
+      <h1 class="title" translate="password_reset_title"></h1>
+      <button class="button" ng-click="closeModal()" translate="cancel_label"></button>
+    </ion-header-bar>
+    <ion-content>
+      <form ng-submit="resetPassword()">
+        <div class="list list-inset spacy">
+          <label class="item item-input">
+            <span class="input-label" translate="email_label"></span>
+            <input type="email" ng-model="resetPassword.email">
+          </label>
+          <label class="item clean">
+            <button class="button button-block button-positive" type="submit" translate="reset_password_btn"></button>
+          </label>
+        </div>
+      </form>
+    </ion-content>
+  </ion-modal-view>
+</script>

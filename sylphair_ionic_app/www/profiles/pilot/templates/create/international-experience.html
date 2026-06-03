@@ -1,0 +1,102 @@
+<ion-view name="create-pilot-4-view" view-title="{{ 'international_experience_title' | translate }}">
+  <ion-nav-bar class="bar-dark-light">
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+    </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button ng-show="showCancelEdit" ng-click="cancelEdit()" class="button-cancel-edit">
+          <span translate="cancel_label"></span>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content padding="true">
+    <p class='m-tb-1 p-b-1'>
+      <span translate="experience_info"></span>
+      <strong  translate="experience_info_2"></strong>
+    </p>
+    <div class="list" ng-repeat="internationalExperience in createPilot.international_experiences track by $index">
+      <label class="item item-input clean">
+
+		    <ion-checkbox ng-model="internationalExperience.asia" ng-change="simpleSave.save('{{currentKey}}.international_experiences.{{$index}}.asia', internationalExperience.asia)">
+          <span translate="asia_experience"></span>
+        </ion-checkbox>
+		  </label>
+      <label class="item item-input clean">
+		    <ion-checkbox ng-model="internationalExperience.africa" ng-change="simpleSave.save('{{currentKey}}.international_experiences.{{$index}}.africa', internationalExperience.africa)">
+          <span translate="africa_experience"></span>  
+        </ion-checkbox>
+		  </label>
+      <label class="item item-input clean">
+		    <ion-checkbox ng-model="internationalExperience.australia" ng-change="simpleSave.save('{{currentKey}}.international_experiences.{{$index}}.australia', internationalExperience.australia)">
+          <span translate="australia_experience"></span>
+        </ion-checkbox>
+		  </label>
+      <label class="caribbean item item-input clean">
+		    <ion-checkbox ng-model="internationalExperience.caribbean" ng-change="simpleSave.save('{{currentKey}}.international_experiences.{{$index}}.caribbean', internationalExperience.caribbean)">
+          <span translate="caribbean_experience"></span>
+        </ion-checkbox>
+		  </label>
+      <label class="item item-input clean">
+		    <ion-checkbox ng-model="internationalExperience.central_america" ng-change="simpleSave.save('{{currentKey}}.international_experiences.{{$index}}.central_america', internationalExperience.central_america)">
+          <span translate="central_america_experience"></span>  
+        </ion-checkbox>
+		  </label>
+      <label class="item item-input clean">
+		    <ion-checkbox ng-model="internationalExperience.south_america" ng-change="simpleSave.save('{{currentKey}}.international_experiences.{{$index}}.south_america', internationalExperience.south_america)">
+          <span translate="south_america_experience"></span>
+      </ion-checkbox>
+		  </label>
+      <label class="item item-input clean">
+		    <ion-checkbox ng-model="internationalExperience.eastern_europe" ng-change="simpleSave.save('{{currentKey}}.international_experiences.{{$index}}.eastern_europe', internationalExperience.eastern_europe)">
+          <span translate="eastern_europe_experience"></span>  
+        </ion-checkbox>
+		  </label>
+      <label class="item item-input clean">
+		    <ion-checkbox ng-model="internationalExperience.europe" ng-change="simpleSave.save('{{currentKey}}.international_experiences.{{$index}}.europe', internationalExperience.europe)">
+           <span translate="europe_experience"></span>  
+        </ion-checkbox>
+		  </label>
+      <label class="item item-input clean">
+		    <ion-checkbox ng-model="internationalExperience.india" ng-change="simpleSave.save('{{currentKey}}.international_experiences.{{$index}}.india', internationalExperience.india)">
+          <span translate="india_experience"></span>
+        </ion-checkbox>
+		  </label>
+      <label class="item item-input clean">
+		    <ion-checkbox ng-model="internationalExperience.middle_east" ng-change="simpleSave.save('{{currentKey}}.international_experiences.{{$index}}.middle_east', internationalExperience.middle_east)">
+          <span translate="middle_east_experience"></span>  
+        </ion-checkbox>
+		  </label>
+      <label class="item item-input clean">
+		    <ion-checkbox ng-model="internationalExperience.north_america" ng-change="simpleSave.save('{{currentKey}}.international_experiences.{{$index}}.north_america', internationalExperience.north_america)">
+          <span translate="north_america_experience"></span>  
+        </ion-checkbox>
+		  </label>
+      <label class="item item-input clean">
+		    <ion-checkbox ng-model="internationalExperience.oceanic_crossings" ng-change="simpleSave.save('{{currentKey}}.international_experiences.{{$index}}.oceanic_crossings', internationalExperience.oceanic_crossings)">
+          <span translate="oceanic_experience"></span>   
+        </ion-checkbox>
+		  </label>
+      <label class="item item-input clean">
+		    <ion-checkbox ng-model="internationalExperience.pacific_crossings" ng-change="simpleSave.save('{{currentKey}}.international_experiences.{{$index}}.pacific_crossings', internationalExperience.pacific_crossings)">
+          <span translate="pacific_experience"></span>  
+        </ion-checkbox>
+		  </label>
+
+      <label class="item item-input item-stacked-label">
+		    <span class="input-label" translate="additional_information"></span>
+
+		    <textarea ng-model="internationalExperience.int_additional_info" ng-change="simpleSave.save('{{currentKey}}.international_experiences.{{$index}}.int_additional_info', internationalExperience.int_additional_info)" placeholder="{{ 'additional_experience_placeholder' | translate }}" rows="10" cols="10"></textarea>
+		  </label>
+    </div>
+  </ion-content>
+  <ion-footer-bar align-title="center" class="footer-bar">
+    <div class="row m-0">
+      <div class="row m-0">
+      <div class="col"><a href="{{backURL}}" class="button next ion-chevron-left"> {{ 'back_label' | translate }}</a></div>
+      <div class="col text-center step-count">6/10</div>
+      <div ng-click="vm.validateInternational()" class="col text-right"><a class="button  next  icon-right ion-chevron-right" translate="next_label"></a></div>
+    </div>
+  </ion-footer-bar>
+</ion-view>

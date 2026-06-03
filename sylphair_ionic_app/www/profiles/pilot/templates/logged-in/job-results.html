@@ -1,0 +1,40 @@
+<ion-view name="job-results-view" view-title="{{'result_label' | translate}}">
+
+  <ion-nav-bar class="bar-dark-light">
+    <ion-nav-buttons side="left">
+      <button ng-click="resultsgoBack()" class="button-custom-back">
+      <span>
+        <i class="icon ion-chevron-left small"></i> <!-- Back -->
+
+      </span>
+    </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content padding="true">
+    <div ng-show="showNoFound">
+      <p class="dim-gray ended">
+        <strong translate="no_result_label"></strong>
+      </p>
+    </div>
+    <div class="list">
+      <a ng-repeat="result in results track by result.id" class="item item-icon-right" href="#/jobs/{{result.id}}">
+        <h2 class="dim-gray"><strong><span class="capitalize">{{result.contract_type}}</span></strong></h2>
+        <h3>{{result.country_id | objectById:'countries' | translate }}</h3>
+        <div class="results-paragraphs-info">
+          <p class="dim-gray"><strong>{{'dates_label' | translate}}:</strong> {{result.start_date}} to: {{result.end_date}}</p>
+          <p class="dim-gray"><strong>{{'aircraft_label' | translate}}:</strong> {{result.aircraft_id | aircraftById:'aircrafts' : aircrafts }}</p>
+          <p class="dim-gray" ng-if="result.job_positions.length ==0 || !result.job_positions"><strong>{{'position_label' | translate}}:</strong> {{result.position}}</p>
+          <p class="dim-gray" ng-repeat="position in result.job_positions"><strong>{{'position_label' | translate}}:</strong> {{position.position}}</p>
+          <p class="dim-gray"><strong>{{'salary_label' | translate}}:</strong> {{result.monthly_salary | currency:"USD$":0}}</p>
+          <i class="icon ion-arrow-right-c gray"></i>
+        </div>
+      </a>
+      <p ng-show="!fetchData && !showNoFound" class="text-center">No More Results</p>
+    </div>
+   
+    <ion-infinite-scroll ng-if="fetchData" on-infinite="doSearch()">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-content>
+
+</ion-view>

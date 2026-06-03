@@ -1,0 +1,187 @@
+<ion-view name="registration-view" id="registration-view" view-title="{{ 'registration_title' | translate }}">
+  <ion-nav-bar class="bar-dark-light">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+  </ion-nav-bar>
+  <ion-content>
+    <div ng-if="activateLanguages" style="position: absolute; left: 1.2em; top: -2.5em; display: flex;">
+      <button-lang-en ng-click="changeLanguage('en')"></button-lang-en>
+      <button-lang-sp ng-click="changeLanguage('sp')" style="margin-left: 20px"></button-lang-zh>
+    </div>
+    <div class="row m-t-3">
+      <div class="col-80 col-offset-10">
+        <button class="button button-icon icon  upload-button" ng-click="openModal()">
+
+					<i ng-show="imgURI == undefined" class="photo-button ion-camera"></i>
+					<p ng-show="imgURI == undefined" translate="upload_picture"></p>
+					<img ng-show="imgURI !== undefined" ng-src="{{imgURI}}" class="full-width">
+
+				</button>
+        <a ng-show="imgURI !== undefined" ng-click="openModal()" class="button button-block button-positive" href="" translate="edit_btn"></a>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-80 col-offset-10">
+        <p class="intro-info-2">
+          <strong class="down" ng-click="goDown()" translate="welcome_msg"></strong>
+          <span translate="intro_info_2"></span>
+        </p>
+        <p class="intro-info-2">
+          <span translate="intro_info_3"></span>
+          <strong><a ng-href="#/registration" ng-click="openModal()" translate="upload_picture"></a></strong>
+          <span translate="intro_info_4"></span>
+          <i class="ion-camera"></i>
+          <span translate="intro_info_5"></span>
+        </p>
+        <p class="intro-info-2">
+          <span translate="intro_info_6"></span>
+          <strong translate="intro_info_7"></strong>
+          <span translate="intro_info_8"></span>
+        </p>
+      </div>
+    </div>
+
+
+    <form class="m-0" name="registerForm" ng-submit="doRegister(registerForm)" id="login-form" novalidate="novalidate">
+      <div class="list list-inset spacy">
+
+        <label class="item item-input item-select" ng-class="{'has-error': registerForm.profile.$invalid && registerForm.$touched }">
+		      <div class="input-label" translate="profile_label"></div>
+          <select ng-model="user.role" ng-options="profile.code as profile.value | translate for profile in profiles" name="profile" required>
+		      </select>
+		    </label>
+
+        <label class="item item-input" ng-class="{'has-error': registerForm.firstName.$invalid && registerForm.$touched}">
+          <span class="input-label" translate="first_name_label"></span>
+          <input type="text" ng-model="user.name" minlength="2" name="firstName" ng-maxlength="15" required>
+        </label>
+        <label class="item item-input" ng-class="{'has-error': registerForm.lastName.$invalid && registerForm.$touched}">
+          <span class="input-label" translate="last_name_label"></span>
+          <input type="text" ng-model="user.last_name" minlength="2" name="lastName" ng-maxlength="15" required>
+        </label>
+        <label class="item item-input" ng-class="{'has-error': registerForm.email.$invalid && registerForm.$touched}">
+          <span class="input-label" translate="email_label">></span>
+          <input type="email" ng-model="user.email" name="email" required minlength="5">
+        </label>
+        <label class="item item-input" ng-class="{'has-error': registerForm.password.$invalid && registerForm.$touched }">
+          <span class="input-label" translate="password_label"></span>
+          <input
+            type="password"
+            ng-change="checkPasswordMatch(registerForm)"
+            ng-model="user.password"
+            name="password"
+            minlength="8"
+            ng-maxlength="30"
+            required
+          >
+        </label>
+
+        <label class="item item-input" ng-class="{'has-error': registerForm.confirm_password.$invalid && registerForm.$touched }">
+          <span class="input-label" translate="confirm_password_label"></span>
+          <input
+            type="password"
+            ng-change="checkPasswordMatch(registerForm)"
+            ng-model="user.confirm_password"
+            name="confirm_password"
+            required
+          >
+        </label>
+        <div style="border-radius: 5px;" class="item-input" ng-class="{'has-error': registerForm.acceptTerms.$invalid && registerForm.$touched }">
+          <ion-checkbox class="accept" name="acceptTerms" ng-model="user.acceptTerms" required ng-change="termsChange(registerForm)"></ion-checkbox>
+          <span class="legal">
+             <span>
+               <span translate="legal_information"></span>
+               <a ng-click="redirectTerms()">sylphairaviation.com/terms-and-privacy.html</a>
+             </span>
+           </span>
+        </div>
+
+        <!-- <input
+              id="passwordTemp"
+              name="passwordTemp"
+              ng-change="checkPasswordMatch()"
+              ng-minlength="6"
+              ng-model="user.passwordTemp"
+              placeholder="Confirma Contraseña"
+              required
+              type="password"
+            > -->
+
+        <label class="item clean">
+          <button id="registration-button" class="button button-block button-positive" type="submit" translate="register_btn"></button>
+        </label>
+      </div>
+    </form>
+    <div class="row">
+      <div class="col">
+        <div ng-messages="registerForm.profile.$error" style="color:maroon" role="alert" ng-show="registerForm.profile.$invalid && registerForm.$touched">
+          <div ng-message="required" ng-show="registerForm.profile.$invalid" translate="select_profile_msg"></div>
+        </div>
+        <div ng-messages="registerForm.firstName.$error" style="color:maroon" role="alert" ng-show="registerForm.$touched">
+          <div ng-message="required" translate="enter_firstname_msg"></div>
+          <div ng-message="minlength" translate="short_firstname_msg"></div>
+          <div ng-message="maxlength" translate="long_firstname_msg"></div>
+        </div>
+        <div ng-messages="registerForm.lastName.$error" style="color:maroon" role="alert" ng-show="registerForm.$touched">
+          <div ng-message="required" translate="enter_lastname_msg"></div>
+          <div ng-message="minlength" translate="short_lastname_msg"></div>
+          <div ng-message="maxlength" translate="long_lastname_msg"></div>
+        </div>
+
+        <div ng-messages="registerForm.email.$error" style="color:maroon" role="alert" ng-show="registerForm.$touched">
+          <div ng-message="required" translate="enter_email_msg"></div>
+          <div ng-message="email" translate="email_error_msg"></div>
+          <div ng-message="minlength" translate="email_error_msg"></div>
+        </div>
+
+        <div ng-messages="registerForm.password.$error" style="color:maroon" role="alert" ng-show="registerForm.$touched">
+          <div ng-message="required" translate="enter_password_msg"></div>
+          <div ng-message="minlength" translate="short_password_msg"></div>
+          <div ng-message="maxlength" translate="long_password_msg"></div>
+        </div>
+
+        <div ng-messages="registerForm.confirm_password.$error" style="color:maroon" role="alert" ng-show="registerForm.$touched">
+          <div ng-message="required" translate="enter_confirm_password_msg"></div>
+          <div ng-message="minlength" translate="short_password_msg"></div>
+          <div ng-message="maxlength" translate="long_password_msg"></div>
+        </div>
+
+        <div ng-messages="registerForm.acceptTerms.$error" style="color:maroon" role="alert" ng-show="registerForm.$touched && registerForm.acceptTerms.$invalid" translate="accept_terms_msg"></div>
+
+      </div>
+    </div>
+
+  </ion-content>
+  <ion-footer-bar align-title="center" class="bar-have-account">
+    <p class="footer-text">
+      <small translate="footer_text"></small>
+      <a href="#/login" translate="login_btn"></a>
+    </p></br></br>
+  </ion-footer-bar>
+
+  <script id="add-a-picture.html" type="text/ng-template">
+    <ion-modal-view class="modal-view">
+      <ion-header-bar>
+        <h1 class="title" translate="upload_picture"></h1>
+        <button class="button button-clear" ng-click="closeModal()" translate="cancel_btn"></button>
+      </ion-header-bar>
+      <ion-content>
+        <div class="row">
+          <div class="col">
+            <button class="button button-block button-positive m-0 text-left" ng-click="takePhoto()" type="submit">
+                <i class="ion-ios-camera-outline"></i> <span translate="take_picture_btn"></span>
+              </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <button class="button button-block button-positive m-0 text-left" ng-click="choosePhoto()" type="submit">
+                <i class="ion-ios-cloud-upload-outline"></i> <span translate="choose_photo_btn"></span>
+              </button>
+          </div>
+        </div>
+      </ion-content>
+    </ion-modal-view>
+  </script>
+</ion-view>

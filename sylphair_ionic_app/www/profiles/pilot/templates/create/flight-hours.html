@@ -1,0 +1,130 @@
+<ion-view name="flight-hours-view" view-title="{{ 'pilot_flight_hours_title' | translate }}">
+
+  <ion-nav-bar class="bar-dark-light">
+  <ion-nav-buttons side="left">
+    <button class="button button-icon button-clear ion-navicon"  menu-toggle="left">
+    </button>
+  </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button ng-show="showCancelEdit" ng-click="cancelEdit()" class="button-cancel-edit">
+          <span translate="cancel_label"></span>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content padding="true">
+    <div ng-repeat="flightMetric in createPilot.flight_metrics track by $index">
+      <div class="list">
+        <label class="item item-input">
+          <div class="input-label" translate="pilot_total_hours_label"></div>
+          <input class="right-placeholder" placeholder="I.e: 1000" placeholder="0" type="number" min="0" ng-maxlength="10" inputmode="numeric" pattern="[0-9]*" ng-model="flightMetric.flight_hours" ng-change="simpleSave.save('{{currentKey}}.flight_metrics.{{$index}}.flight_hours', flightMetric.flight_hours )">
+        </label>
+        <label class="item item-input">
+          <div class="input-label" translate="pilot_pic_hours_label"></div>
+          <input class="right-placeholder" placeholder="0" type="number" min="0" ng-maxlength="10" inputmode="numeric" pattern="[0-9]*" ng-model="flightMetric.pic_hours" ng-change="simpleSave.save('{{currentKey}}.flight_metrics.{{$index}}.pic_hours', flightMetric.pic_hours )">
+        </label>
+        <label class="item item-input">
+          <div class="input-label" translate="pilot_sic_hours_label"></div>
+          <input class="right-placeholder" placeholder="0" type="number" min="0" ng-maxlength="10" inputmode="numeric" pattern="[0-9]*" ng-model="flightMetric.sic_hours" ng-change="simpleSave.save('{{currentKey}}.flight_metrics.{{$index}}.sic_hours', flightMetric.sic_hours )">
+        </label>
+        <label class="item item-input">
+          <div class="input-label" translate="pilot_instruments_hours_label"></div>
+          <input class="right-placeholder" placeholder="0" type="number" min="0" ng-maxlength="10" inputmode="numeric" pattern="[0-9]*" ng-model="flightMetric.instrument_hours" ng-change="simpleSave.save('{{currentKey}}.flight_metrics.{{$index}}.instrument_hours', flightMetric.instrument_hours )">
+        </label>
+        <label class="item item-input">
+          <div class="input-label" translate="pilot_night_hours_label"></div>
+          <input class="right-placeholder" placeholder="0" type="number" min="0" ng-maxlength="10" inputmode="numeric" pattern="[0-9]*" ng-model="flightMetric.night_hours" ng-change="simpleSave.save('{{currentKey}}.flight_metrics.{{$index}}.night_hours', flightMetric.night_hours )">
+        </label>
+        <label class="item item-input">
+          <div class="input-label" translate="pilot_single_engine_hours_label"></div>
+          <input class="right-placeholder" placeholder="0" type="number" min="0" ng-maxlength="10" inputmode="numeric" pattern="[0-9]*" ng-model="flightMetric.single_engine_hours" ng-change="simpleSave.save('{{currentKey}}.flight_metrics.{{$index}}.single_engine_hours', flightMetric.single_engine_hours )">
+        </label>
+        <label class="item item-input">
+          <div class="input-label" translate="pilot_multi_engine_hours_label"></div>
+          <input class="right-placeholder" placeholder="0" type="number" min="0" ng-maxlength="10" inputmode="numeric" pattern="[0-9]*" ng-model="flightMetric.multi_engine_hours" ng-change="simpleSave.save('{{currentKey}}.flight_metrics.{{$index}}.multi_engine_hours', flightMetric.multi_engine_hours )">
+        </label>
+        <label class="item item-input">
+          <div class="input-label" translate="pilot_turbo_prop_hours_label"></div>
+          <input class="right-placeholder" placeholder="0" type="number" min="0" ng-maxlength="10" inputmode="numeric" pattern="[0-9]*" ng-model="flightMetric.turbo_prop_hours" ng-change="simpleSave.save('{{currentKey}}.flight_metrics.{{$index}}.turbo_prop_hours', flightMetric.turbo_prop_hours )">
+        </label>
+        <label class="item item-input">
+          <div class="input-label" translate="pilot_jet_hours_label"></div>
+          <input class="right-placeholder" placeholder="0" type="number" min="0" ng-maxlength="10" inputmode="numeric" pattern="[0-9]*" ng-model="flightMetric.jet_hours" ng-change="simpleSave.save('{{currentKey}}.flight_metrics.{{$index}}.jet_hours', flightMetric.jet_hours )">
+        </label>
+      </div>
+		</div>
+		<div ng-repeat="specialOperationsMetric in createPilot.special_operations_metrics track by $index">
+      <h4 class="title-form-simple" translate="pilot_special_oper_hours_title"></h4>
+
+      <div class="list">
+        <label class="item item-input">
+          <div class="input-label">
+            <span translate="pilot_aerial_hours"></span></br>
+            <span translate="pilot_aerial_hours_2"></span>
+          </div>
+          <input class="right-placeholder" placeholder="I.e: 1000" placeholder="0" type="number" min="0" ng-maxlength="10" inputmode="numeric" pattern="[0-9]*" ng-model="specialOperationsMetric.aerial_application_hours" ng-change="simpleSave.save('{{currentKey}}.special_operations_metrics.{{$index}}.aerial_application_hours', specialOperationsMetric.aerial_application_hours )">
+        </label>
+        <label class="item item-input">
+          <div class="input-label">
+            <span translate="pilot_fire_hours"></span></br>
+            <span translate="pilot_fire_hours_2"></span>
+          </div>
+          <input class="right-placeholder" placeholder="0" type="number" min="0" ng-maxlength="10" inputmode="numeric" pattern="[0-9]*" ng-model="specialOperationsMetric.fire_fighting_hours" ng-change="simpleSave.save('{{currentKey}}.special_operations_metrics.{{$index}}.fire_fighting_hours', specialOperationsMetric.fire_fighting_hours )">
+        </label>
+        <!-- <label class="item item-input">
+          <div class="input-label">
+            SIC hours
+          </div>
+          <input class="right-placeholder" placeholder="0" type="number" min="0" ng-maxlength="10" inputmode="numeric" pattern="[0-9]*" ng-model="specialOperationsMetric.sic_hours" ng-change="simpleSave.save('{{currentKey}}.special_operations_metrics.{{$index}}.sic_hours', specialOperationsMetric.sic_hours )">
+        </label> -->
+        <label class="item item-input">
+          <div class="input-label">
+            <span translate="pilot_banner_hours"></span><br>
+            <span translate="pilot_banner_hours_2"></span>
+          </div>
+          <input class="right-placeholder" placeholder="0" type="number" min="0" ng-maxlength="10" inputmode="numeric" pattern="[0-9]*" ng-model="specialOperationsMetric.banner_towing_hours" ng-change="simpleSave.save('{{currentKey}}.special_operations_metrics.{{$index}}.banner_towing_hours', specialOperationsMetric.banner_towing_hours )">
+        </label>
+        <label class="item item-input">
+          <div class="input-label">
+            <span translate="pilot_bush_hours"></span><br>
+            <span translate="pilot_bush_hours_2"></span>
+          </div>
+          <input class="right-placeholder" placeholder="0" type="number" min="0" ng-maxlength="10" inputmode="numeric" pattern="[0-9]*" ng-model="specialOperationsMetric.bush_flying_hours" ng-change="simpleSave.save('{{currentKey}}.special_operations_metrics.{{$index}}.bush_flying_hours', specialOperationsMetric.bush_flying_hours )">
+        </label>
+        <label class="item item-input">
+          <div class="input-label">
+            <span translate="pilot_pipeline_hours"></span><br>
+            <span translate="pilot_pipeline_hours_2"></span>
+          </div>
+          <input class="right-placeholder" placeholder="0" type="number" min="0" ng-maxlength="10" inputmode="numeric" pattern="[0-9]*" ng-model="specialOperationsMetric.pipeline_patrol_hours" ng-change="simpleSave.save('{{currentKey}}.special_operations_metrics.{{$index}}.pipeline_patrol_hours', specialOperationsMetric.pipeline_patrol_hours )">
+        </label>
+        <label class="item item-input">
+          <div class="input-label">
+            <span translate="pilot_photography_hours"></span><br>
+            <span translate="pilot_photography_hours_2"></span>
+          </div>
+          <input class="right-placeholder" placeholder="0" type="number" min="0" ng-maxlength="10" inputmode="numeric" pattern="[0-9]*" ng-model="specialOperationsMetric.sightseeing_hours" ng-change="simpleSave.save('{{currentKey}}.special_operations_metrics.{{$index}}.sightseeing_hours', specialOperationsMetric.sightseeing_hours )">
+        </label>
+        <label class="item item-input">
+          <div class="input-label">
+            <span translate="pilot_military_hours"></span><br>
+            <span translate="pilot_military_hours_2"></span>
+          </div>
+          <input class="right-placeholder" placeholder="0" type="number" min="0" ng-maxlength="10" inputmode="numeric" pattern="[0-9]*" ng-model="specialOperationsMetric.police_hours" ng-change="simpleSave.save('{{currentKey}}.special_operations_metrics.{{$index}}.police_hours', specialOperationsMetric.police_hours )">
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label" translate="additional_information"></span>
+          <textarea ng-model="specialOperationsMetric.additional_information" ng-change="simpleSave.save('{{currentKey}}.special_operations_metrics.{{$index}}.additional_information', specialOperationsMetric.additional_information )" placeholder="{{ 'additional_info_placeholder' | translate }}" rows="10" cols="10"></textarea>
+        </label>
+      </div>
+
+    </div>
+  </ion-content>
+	<ion-footer-bar align-title="center" class="footer-bar">
+    <div class="row m-0">
+        <div class="col"><a href="{{backURL}}" class="button next ion-chevron-left"> {{'back_label' | translate}}</a></div>
+        <div class="col text-center step-count">4/10</div>
+        <div class="col text-right"><a href="{{nextURL}}" class="button  next  icon-right ion-chevron-right" translate="next_label"></a></div>
+    </div>
+  </ion-footer-bar>
+</ion-view>

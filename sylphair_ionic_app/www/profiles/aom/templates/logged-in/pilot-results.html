@@ -1,0 +1,30 @@
+<ion-view name="aom-pilot-results-view" view-title="{{'result_label' | translate}}">
+  <ion-nav-bar class="bar-dark-light">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+  </ion-nav-bar>
+  <ion-content padding="true">
+
+    <div ng-show="showNoFound">
+      <p class="dim-gray ended">
+        <strong translate="no_result_label"></strong>
+      </p>
+    </div>
+
+    <div class="list">
+      <a ng-repeat="result in results track by result.id" class="item item-avatar ion-arrow-right-c gray" href="#/app-aom/{{profile_type_url}}/{{result.id}}">
+        <img ng-src="{{result.user.avatar || 'img/default-user-image.png'}}" alt="" onerror="this.src='img/default-user-image.png'">
+        <h2 class="dim-gray">{{result.user.name}}</h2>
+        <p class="dim-gray" ng-if="result.crew_member_positions.length == 0 || !result.crew_member_positions"><strong>{{'position_label' | translate }}:</strong> {{result.position}}</p>
+        <p class="dim-gray" ng-repeat="x in result.crew_member_positions">
+          <strong>{{'position_label' | translate }}:</strong> {{x.position}}<br>
+        </p>
+      </a>
+      <p ng-show="!fetchData && !showNoFound" class="text-center">No More Results</p>
+    </div>
+
+    <ion-infinite-scroll ng-if="fetchData" on-infinite="doSearch()">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

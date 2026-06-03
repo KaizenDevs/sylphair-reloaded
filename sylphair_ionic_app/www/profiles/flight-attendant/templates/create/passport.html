@@ -1,0 +1,59 @@
+<ion-view name="passport-view" view-title="{{ 'passport_title' | translate }}">
+  <ion-nav-bar class="bar-dark-light">
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+    </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button ng-show="showCancelEdit" ng-click="cancelEdit()" class="button-cancel-edit">
+          <span translate="cancel_label"></span>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content padding="true">
+    <div class="list" ng-repeat="passport in createFlightAttendant.passports_attributes track by $index" ng-if="!passport._destroy">
+
+      <!-- <label class="item item-input item-select">
+	      <div class="input-label">
+	        Country
+	      </div>
+	      <select ng-options="country.id as country.name | translate for country in countries" ng-model="passport.country_id" ng-change="simpleSave.save('{{currentKey}}.passports_attributes.{{$index}}.country_id', passport.country_id)">
+	      </select>
+	    </label> -->
+
+      <label class="item item-input item-select">
+	      <div class="input-label" translate="issuing_country_label"></div>
+	      <select ng-options="country.id as country.name | translate for country in countries" ng-model="passport.country_of_issue_id" ng-change="simpleSave.save('{{currentKey}}.passports_attributes.{{$index}}.country_of_issue_id', passport.country_of_issue_id)">
+	      </select>
+	    </label>
+
+      <label class="item item-input item-input-date">
+	      <span class="input-label" translate="date_issue_label"></span>
+	      <input type="date" class="input-date" ng-model="passport.issued_on"  ng-model-options="{ updateOn: 'blur' , getterSetter: true }" ng-change="simpleSave.save('{{currentKey}}.passports_attributes.{{$index}}.issued_on', passport.issued_on)">
+	    </label>
+
+      <label class="item item-input item-input-date">
+	      <span class="input-label" translate="expires_date"></span>
+	      <input type="date" class="input-date" ng-model="passport.expires_on"  ng-model-options="{ updateOn: 'blur' , getterSetter: true }" ng-change="simpleSave.save('{{currentKey}}.passports_attributes.{{$index}}.expires_on', passport.expires_on)">
+	    </label>
+
+      <label class="item right">
+	      <button class="button-like-link" ng-click="nestedObjectHandler.remove( {{$index}},'{{currentKey}}','passports_attributes')" translate="delete_passport"></button>
+	    </label>
+
+    </div>
+
+    <label class="item no-border right">
+	      <button class="button-like-link" ng-click="nestedObjectHandler.add('{{currentKey}}','passports_attributes')" translate="add_passport"></button>
+	  </label>
+
+  </ion-content>
+
+  <ion-footer-bar align-title="center" class="footer-bar">
+    <div class="row m-0">
+      <div class="col"><a href="{{backURL}}" class="button next ion-chevron-left"> {{ 'back_label' | translate }}</a></div>
+      <div class="col text-center step-count">2/7</div>
+      <div ng-click="vm.validatePassport()" class="col text-right"><a class="button  next  icon-right ion-chevron-right" translate="next_label"></a></div>
+    </div>
+  </ion-footer-bar>
+</ion-view>

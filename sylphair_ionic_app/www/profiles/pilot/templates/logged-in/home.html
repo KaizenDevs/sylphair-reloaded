@@ -1,0 +1,27 @@
+<ion-view name="aom-home-view" view-title="{{'pilot_home_title' | translate}}" hide-back-button="true" animation="slide-left-right">
+
+  <ion-nav-buttons side="left">
+    <button ng-click="menu()" class="button button-icon button-clear ion-navicon" menu-toggle="left">
+    </button>
+  </ion-nav-buttons>
+  <!-- <ion-nav-buttons side="right">
+    <a data-tap-disabled="true" class="ion-ios-help-outline sizing-1 button button-icon icon positive"></a>
+  </ion-nav-buttons> -->
+
+  <ion-content padding="true">
+
+    <section class="container">
+      <div class="element padding">
+        <a href="#/app-pilot/pilot-job-search" class="search button button-block text-left icon-left ion-plane button-block button-positive">
+          <span translate="search_job_label"></span>
+        </a>
+      </div>
+      <div class="element padding">
+        <a href="#/app-pilot/messages-list" class="messages button button-block text-left icon-left ion-android-chat button-block button-positive">
+          <span translate="messages_label"></span>
+        </a>
+      </div>
+    </section>
+
+  </ion-content>
+</ion-view>

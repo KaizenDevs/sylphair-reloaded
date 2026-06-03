@@ -1,0 +1,52 @@
+<ion-view name="visa-view" view-title="{{ 'visa_title' | translate }}">
+  <ion-nav-bar class="bar-dark-light">
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+    </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button ng-show="showCancelEdit" ng-click="cancelEdit()" class="button-cancel-edit">
+          <span translate="cancel_label"></span>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+  <ion-content padding="true">
+    <div class="list" ng-repeat="visa in createFlightAttendant.visas_attributes track by $index" ng-if="!visa._destroy">
+
+      <label class="item item-input item-select">
+	      <div class="input-label" translate="country_label"></div>
+	      <select ng-options="country.id as country.name | translate for country in countries" ng-model="visa.country_id" ng-change="simpleSave.save('{{currentKey}}.visas_attributes.{{$index}}.country_id', visa.country_id)">
+	      </select>
+	    </label>
+
+      <label class="item item-input item-input-date">
+	      <div class="input-label" translate="date_issue_label"></div>
+
+	      <input class="input-date" type="date" ng-model="visa.issued_on" ng-change="simpleSave.save('{{currentKey}}.visas_attributes.{{$index}}.issued_on', visa.issued_on)">
+	    </label>
+
+      <label class="item item-input item-input-date">
+	      <div class="input-label" translate="valid_until"></div>
+
+	      <input class="input-date" type="date" ng-model="visa.expires_on" ng-change="simpleSave.save('{{currentKey}}.visas_attributes.{{$index}}.expires_on', visa.expires_on)">
+	    </label>
+      <label class="item item-input item-stacked-label">
+	    <span class="input-label" translate="additional_information"></span>
+	    <textarea ng-model="visa.additional_information" ng-change="simpleSave.save('{{currentKey}}.visas_attributes.{{$index}}.additional_information', visa.additional_information)" placeholder="{{ 'additional_visa_info_placeholder' | translate }}" rows="6" ></textarea>
+	  </label>
+      <label class="item right">
+	    <button class="button-like-link" ng-click="nestedObjectHandler.remove( {{$index}},'{{currentKey}}','visas_attributes')" translate="delete_visa"></button>
+	  </label>
+    </div>
+    <label class="item no-border right">
+	    <button class="button-like-link" ng-click="nestedObjectHandler.add('{{currentKey}}','visas_attributes')" translate="add_visa"></button>
+	</label>
+  </ion-content>
+  <ion-footer-bar align-title="center" class="footer-bar">
+    <div class="row m-0">
+      <div class="col"><a href="{{backURL}}" class="button next ion-chevron-left"> {{'back_label' | translate}}</a></div>
+      <div class="col text-center step-count">3/7</div>
+      <div ng-click="vm.validateVisa()" class="col text-right"><a class="button  next  icon-right ion-chevron-right" translate="next_label"></a></div>
+    </div>
+  </ion-footer-bar>
+</ion-view>

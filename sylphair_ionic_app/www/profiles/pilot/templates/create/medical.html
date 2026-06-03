@@ -1,0 +1,51 @@
+<ion-view name="create-pilot-2-view" view-title="{{ 'pilot_medical_title' | translate }}">
+
+  <ion-nav-bar class="bar-dark-light">
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+    </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button ng-show="showCancelEdit" ng-click="cancelEdit()" class="button-cancel-edit">
+          <span translate="cancel_label"></span>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content padding="true">
+    <div class="list" ng-repeat="medical in createPilot.medical_attributes track by $index" ng-if="!medical._destroy">
+      <label class="item item-input item-select">
+		    <div class="input-label" translate="pilot_medical_type"></div>
+		    <select ng-options="medical_type.value as medical_type.value | translate for medical_type in pilot_medical_type" ng-model="medical.type_of" ng-change="simpleSave.save('{{currentKey}}.medical_attributes.{{$index}}.type_of', medical.type_of)" >
+		    </select>
+		  </label>
+      <label class="item item-input item-select">
+		    <div class="input-label" translate="issuing_auth_label"></div>
+		    <select ng-options="issuance_authority.value as issuance_authority.value for issuance_authority in pilot_medical_issuance_authorities" ng-model="medical.issuance_authority" ng-change="simpleSave.save('{{currentKey}}.medical_attributes.{{$index}}.issuance_authority', medical.issuance_authority)" >
+		    </select>
+		  </label>
+      <label class="item item-input item-select">
+		    <div class="input-label" translate="issuing_country_label"></div>
+		    <select name="issuance-country"  ng-options="country.id as country.name | translate for country in countries | orderBy:country.name" ng-model="medical.issuance_country_id" ng-change="simpleSave.save('{{currentKey}}.medical_attributes.{{$index}}.issuance_country_id', medical.issuance_country_id)" >
+		    </select>
+		  </label>
+      <label class="item item-input item-input-date">
+		    <div class="input-label" translate="valid_until"></div>
+		    <input type="date" class="input-date" ng-model="medical.valid_until"  ng-model-options="{ updateOn: 'blur' , getterSetter: true }" ng-change="simpleSave.save('{{currentKey}}.medical_attributes.{{$index}}.valid_until', medical.valid_until)">
+		  </label>
+      <label class="item right">
+        <button class="button-like-link" ng-click="nestedObjectHandler.remove( {{$index}},'{{currentKey}}','medical_attributes')" translate="pilot_delete_medical_label"></button>
+      </label>
+    </div>
+    <label class="item no-border right">
+      <button class="button-like-link" ng-click="nestedObjectHandler.add('{{currentKey}}','medical_attributes')" translate="pilot_add_medical_label"></button>
+    </label>
+  </ion-content>
+  <ion-footer-bar align-title="center" class="footer-bar">
+    <div class="row m-0">
+      <div class="col"><a href="{{backURL}}" class="button next ion-chevron-left"> {{ 'back_label' | translate }}</a></div>
+      <div class="col text-center step-count">3/10</div>
+      <div ng-click="vm.validateMedical()" class="col text-right"><a class="button  next  icon-right ion-chevron-right" translate="next_label"></a></div>
+    </div>
+  </ion-footer-bar>
+</ion-view>

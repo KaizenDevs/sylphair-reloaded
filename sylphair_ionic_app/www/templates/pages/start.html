@@ -1,0 +1,35 @@
+<ion-view name="start-view" view-title="Sylphair">
+  <div class="version-app">v{{app_version}}</div>
+  <ion-content has-header="false" padding="true">
+    <div ng-if="activateLanguages" style="position: absolute; left: 1.2em; top: 1em; display: flex;">
+      <button-lang-en ng-click="changeLanguage('en')"></button-lang-en>
+      <!-- <button-lang-sp ng-click="changeLanguage('sp')" style="margin-left: 20px"></button-lang-zh> -->
+      <button-lang-sp ng-click="changeLanguage('sp')" style="margin-left: 20px"></button-lang-zh>
+    </div>
+    <div class="row row-center">
+      <div class="col col-center">
+        <div class="start-logo">
+          <img ng-src="img/sylphair-aviation-logo-over-white.png">
+        </div>
+        <p class="slogan">
+          <span translate="slogan_1"></span><br>
+          <span translate="slogan_2"></span>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-50 col-offset-25">
+        <a class="button button-block button-positive" href="#/registration" translate="register_btn"></a>
+        <!-- <a class="button button-block button-positive button-two-lines" href="#/create-aom" >
+          Register as aircraft <br>owner / manager
+        </a> -->
+      </div>
+    </div>
+  </ion-content>
+  <ion-footer-bar align-title="center" class="bar-have-account">
+    <p class="footer-text">
+      <small translate="footer_text"></small>
+      <a href="#/login" translate="login_btn"></a>
+    </p>
+  </ion-footer-bar>
+</ion-view>

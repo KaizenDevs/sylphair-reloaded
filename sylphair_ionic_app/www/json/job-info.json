@@ -1,0 +1,19 @@
+{
+  "id": 9,
+  "aircraft_owner_id": 3,
+  "position": 1,
+  "contract_type": 1,
+  "time_on_type": 1,
+  "start_date": "2016-03-14",
+  "end_date": "2016-03-15",
+  "monthly_salary": 150000,
+  "days_active": 5,
+  "country_id": 501,
+  "allowance": {
+    "housing": "true",
+    "transportation": "true",
+    "education": "true",
+    "other": "true",
+    "description": "It's pretty nice."
+  }
+}

@@ -1,0 +1,22 @@
+<ion-view name="" view-title="{{ 'conversations_label' | translate }} ({{ conversations.length }}) ">
+  <!-- <ion-header-bar align-title="center">
+    <div class="buttons">
+      <a href="#/start" class="button pull-left next  icon-left ion-chevron-left">Back</a>
+    </div>
+  </ion-header-bar> -->
+  <ion-content padding="true">
+    <div class="list">
+      <a ng-repeat="conversation in conversations track by conversation.id" class="item item-avatar ion-arrow-right-c gray" href="#/{{messagesRoute}}/messages/{{conversation.id}}">
+        <img ng-src="{{ (conversation.recipient_id == userId) ? conversation.sender_data.avatar : conversation.recipient_data.avatar }}" alt="">
+        <div ng-if="conversation.recipient_id === userId">
+          <h2 class="dim-gray">{{ conversation.sender_data.name }} {{ conversation.sender_data.last_name }}</h2>
+          <p class="dim-gray"><strong>{{'role_label' | translate }}:</strong> {{ conversation.sender_data.role }}</p>
+        </div>
+        <div ng-if="conversation.recipient_id !== userId">
+          <h2 class="dim-gray">{{ conversation.recipient_data.name }} {{ conversation.recipient_data.last_name }}</h2>
+          <p class="dim-gray"><strong>{{'role_label' | translate }}:</strong> {{ conversation.recipient_data.role }}</p>
+        </div>
+      </a>
+    </div>
+  </ion-content>
+</ion-view>

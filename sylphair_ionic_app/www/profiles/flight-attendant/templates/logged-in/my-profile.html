@@ -1,0 +1,135 @@
+<ion-view name="pilot-my-profile-view" view-title="{{'my_profile_label' | translate}}">
+  <ion-nav-buttons side="left">
+    <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+    </button>
+  </ion-nav-buttons>
+  <ion-content padding="true">
+    <div class="pilot-profile">
+
+      <div class="avatar" style="background-image: url({{user.user.avatar}})">
+      </div>
+
+      <div class="row top-margin">
+        <div class="center">
+          <h4>{{user.user.name}}</h4>
+        </div>
+      </div>
+      <div class="text-center">
+        <a href="#edit-user" class="button button-small button-positive">
+          &nbsp;{{'edit_info_label' | translate}}&nbsp;
+        </a>
+      </div>
+      <hr>
+
+      <p><strong class="down" ng-click="goDown()">{{'position_label' | translate}}:</strong> {{user.profile.position}}</p>
+      <p><strong>{{'birthday_label' | translate}}:</strong> {{ user.profile.date_of_birth | date:'MMMM dd, yyyy' }}</p>
+      <p><strong>{{'nationality_label' | translate}}:</strong> {{ user.profile.nationality_id | objectById:'countries' | translate }}</p>
+      <p><strong>{{'base_airport_label' | translate}}:</strong> {{ user.profile.home_airport_country_id | objectById:'countries' | translate }}</p>
+      <p><strong>{{'base_airport_label' | translate}} {{'name_label' | translate}}:</strong> {{ user.profile.home_airport }}</p>
+      <p><strong>{{'height_label' | translate}}:</strong> {{ user.profile.height }} cm</p>
+
+      <p ng-repeat="x in user.language_proficiencies">
+        <strong>{{'language_label' | translate}}:</strong> {{ x.language_id | objectById: 'languages' | translate }}<br>
+        <strong>{{'lang_level_label' | translate}}:</strong> {{ x.level === 7 ? "native_lang_option" : x.level | translate }}
+      </p>
+      <p ng-show="user.profile.phone"><strong>{{ 'phone_number_label' | translate }}:</strong> {{ user.profile.phone }}</p>
+      <p ng-show="user.profile.skype"><strong>{{ 'skype_label' | translate }}:</strong> {{user.profile.skype}}</p>
+      <p ng-show="user.profile.cv_url"><strong>{{ 'cv_url_label' | translate }}:</strong> {{user.profile.cv_url}}</p>
+      <div class="row">
+        <div class="col">
+          <p><span class="title">{{'applied_jobs_label' | translate}}:</span><br> {{ appliedJobs.length }}</p>
+        </div>
+        <div class="col text-right">
+          <a href="#app-flight-attendant/jobs-applied" class="button button-small button-positive" translate="view_jobs_label"></a>
+        </div>
+      </div>
+
+
+      <ion-item class="item-stable" ng-click="toggleGroup(showInternationalExperiences,'showInternationalExperiences')" ng-class="{active: showInternationalExperiences}">
+        <i class="icon" ng-class="showInternationalExperiences ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{'international_experience_title' | translate }}
+      </ion-item>
+      <p class="item-accordion" ng-show="showInternationalExperiences">
+        <strong>{{'africa_experience' | translate }}: </strong> {{ user.international_experiences.africa | yesOrNo}} <br>
+        <strong>{{'asia_experience' | translate }}: </strong> {{ user.international_experiences.asia | yesOrNo}} <br>
+        <strong>{{'australia_experience' | translate }}: </strong> {{ user.international_experiences.australia | yesOrNo}} <br>
+        <strong>{{'caribbean_experience' | translate }}: </strong> {{ user.international_experiences.caribbean | yesOrNo}} <br>
+        <strong>{{'central_america_experience' | translate }}: </strong> {{ user.international_experiences.central_america | yesOrNo}} <br>
+        <strong>{{'eastern_europe_experience' | translate }}: </strong> {{ user.international_experiences.eastern_europe | yesOrNo}} <br>
+        <strong>{{'europe_experience' | translate }}: </strong> {{ user.international_experiences.europe | yesOrNo}} <br>
+        <strong>{{'india_experience' | translate }}: </strong> {{ user.international_experiences.india | yesOrNo}} <br>
+        <strong>{{'middle_east_experience' | translate }}: </strong> {{ user.international_experiences.middle_east | yesOrNo}} <br>
+        <strong>{{'north_america_experience' | translate }}: </strong> {{ user.international_experiences.north_america | yesOrNo}} <br>
+        <strong>{{'south_america_experience' | translate }}: </strong> {{ user.international_experiences.south_america | yesOrNo}} <br>
+        <strong>{{'oceanic_experience' | translate }}: </strong> {{ user.international_experiences.oceanic_crossings | yesOrNo}} <br>
+        <strong>{{'pacific_experience' | translate }}: </strong> {{ user.international_experiences.pacific_crossings | yesOrNo}} <br>
+        <strong ng-show="user.international_experiences.int_additional_info != ''">{{'additional_info_label' | translate }}: </strong> {{ user.international_experiences.int_additional_info
+        }} <br>
+
+      </p>
+
+      <ion-item class="item-stable" ng-click="toggleGroup(showProfessionalExperience,'showProfessionalExperience')" ng-class="{active: showProfessionalExperience}">
+        <i class="icon" ng-class="showProfessionalExperience ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{'professional_experience_title' | translate }}
+      </ion-item>
+      <div>
+        <p class="item-accordion" ng-show="showProfessionalExperience">
+          <strong>{{'training_certification_label' | translate}}: </strong> {{ user.professional_experience.training_certification }} <br>
+          <strong>{{'issuing_country_label' | translate}}: </strong> {{ user.professional_experience.issuance_country_id | objectById:'countries' | translate }}
+          <br>
+          <strong>{{'issuing_auth_label' | translate}}: </strong> {{ user.professional_experience.issuance_authority }} <br>
+          <strong>{{'about_me_label' | translate }}: </strong> {{ user.professional_experience.about_me }} <br>
+        </p>
+      </div>
+
+      <ion-item class="item-stable" ng-click="toggleGroup(showPassports, 'showPassports')" ng-class="{active: showPassports}">
+        <i class="icon" ng-class="showPassports ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{ 'passport_title' | translate }}
+      </ion-item>
+      <div ng-repeat="passport in user.passports">
+        <p class="item-accordion" ng-show="showPassports">
+          <!-- <strong>Country: </strong> {{ passport.country_id | objectById:'countries' | translate }} <br> -->
+          <strong>{{'country_issue' | translate}}: </strong> {{ passport.country_of_issue_id | objectById:'countries' | translate }} <br>
+          <strong>{{'date_issue_label' | translate }}: </strong> {{ passport.issued_on | date:'MMMM dd, yyyy' }} <br>
+          <strong>{{'expiration_date' | translate }}: </strong> {{ passport.expires_on | date:'MMMM dd, yyyy' }} <br>
+        </p>
+      </div>
+
+      <ion-item class="item-stable" ng-click="toggleGroup(showVisas,'showVisas')" ng-class="{active: showVisas}">
+        <i class="icon" ng-class="showVisas ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{'visa_title' | translate }}
+      </ion-item>
+      <div ng-repeat="visa in user.visas">
+        <p class="item-accordion" ng-show="showVisas">
+          <strong>{{'country_label' | translate }}: </strong> {{ visa.country_id | objectById:'countries' | translate }} <br>
+          <strong>{{'date_issue_label' | translate }}: </strong> {{ visa.issued_on | date:'MMMM dd, yyyy' }} <br>
+          <strong>{{'expiration_date' | translate }}: </strong> {{ visa.expires_on | date:'MMMM dd, yyyy' }} <br>
+          <strong ng-show="visa.additional_information != ''">{{'additional_info_label' | translate}}: </strong> {{ visa.additional_information
+          }} <br>
+
+        </p>
+      </div>
+
+      <ion-item class="item-stable" ng-click="toggleGroup(ShowAvailability,'ShowAvailability')" ng-class="{active: ShowAvailability}">
+        <i class="icon" ng-class="ShowAvailability ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{'availability_title' | translate }}
+      </ion-item>
+      <p class="item-accordion" ng-show="ShowAvailability">
+        <strong>Full time: </strong> {{ user.availability.full_time | yesOrNo }} <br>
+        <strong>Part time: </strong> {{ user.availability.part_time | yesOrNo }} <br>
+        <strong>Freelancer: </strong> {{ user.availability.freelancer | yesOrNo }} <br>
+        <strong>Other: </strong> {{ user.availability.other | yesOrNo }} <br>
+        <strong>Additional information: </strong> {{ user.availability.availability_additional_info }} <br>
+      </p>
+
+      <ion-item class="item-stable" ng-click="toggleGroup(ShowUnavailableDays, 'ShowUnavailableDays')" ng-class="{active: ShowUnavailableDays}">
+        <i class="icon" ng-class="ShowUnavailableDays ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{'unavailable_days_title' | translate }}
+      </ion-item>
+      <div ng-repeat="unavailable_day in datesRanges">
+        <p class="item-accordion" ng-show="ShowUnavailableDays">
+          <strong>{{'from_label' | translate }}: </strong> {{ unavailable_day.from | date:'MMMM dd, yyyy' }} <br>
+          <strong>{{'to_label' | translate }}: </strong> {{ unavailable_day.to | date:'MMMM dd, yyyy' }} <br>
+        </p>
+      </div>
+      </ion-list>
+
+      <a href="#app-forms/edit-flight-attendant-profile" class="button icon-left ion-edit button-block button-positive" translate="edit_profile_label"></a>
+    </div>
+  </ion-content>
+
+</ion-view>

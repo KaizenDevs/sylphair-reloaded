@@ -1,0 +1,25 @@
+<ion-view name="job-information-view" view-title="{{'jobs_label'| translate}}">
+  <ion-nav-bar class="bar-dark-light">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+  </ion-nav-bar>
+  <ion-content padding="true">
+
+    <div ng-show="showNoFound">
+      <p class="dim-gray ended">
+        <strong translate="no_jobs_created_label"></strong>
+      </p>
+    </div>
+
+    <div class="list">
+        <a ng-repeat="job in jobs" class="item  ion-arrow-right-c gray" href="#/app-aom/jobs/{{job.id}}">
+					<h3>{{job.job_type}}</h3>
+          <h4>{{'applicants_label' | translate }}: {{job.applicants.length}}</h4>
+          <p class="dim-gray"><strong>{{'monthly_salary_label' | translate}}</strong> {{job.monthly_salary | currency:"USD $":0 }}</p>
+					<p class="dim-gray"><strong>{{'position_label' | translate}}:</strong> {{job.position}}</p>
+          <p class="dim-gray"><strong>{{'aircraft_label' | translate}}:</strong> {{ job.aircraft_id | aircraftById:'aircrafts' : aircrafts   }}</p>
+          <p class="dim-gray"><strong>{{'country_label' | translate}}:</strong> {{ job.country_id | objectById:'countries' | translate }}</p>
+        </a>
+    </div>
+  </ion-content>
+</ion-view>

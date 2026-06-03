@@ -1,0 +1,21 @@
+# Dependencies & build tools (not needed for static deploy)
+sylphair_ionic_app/node_modules/
+sylphair_ionic_app/platforms/
+sylphair_ionic_app/plugins/
+
+# APK binaries
+*.apk
+*.ipa
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets — never commit
+sylphair_ionic_app/my-release-key.jks
+sylphair_ionic_app/my-release-key-pass.text
+sylphair_ionic_app/.io-config.json
+*.jks
+*.keystore
+*-pass.text
+*-pass.txt

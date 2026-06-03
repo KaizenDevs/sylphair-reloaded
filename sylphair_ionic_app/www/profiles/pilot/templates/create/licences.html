@@ -1,0 +1,68 @@
+<ion-view name="create-pilot-1-view" view-title="{{ 'pilot_licenses_title' | translate }}">
+
+  <ion-nav-bar class="bar-dark-light">
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+    </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button ng-show="showCancelEdit" ng-click="cancelEdit()" class="button-cancel-edit">
+          <span translate="cancel_label"></span>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content padding="true">
+    <p class="padding" translate="pilot_add_licenses_info"></p>
+    <div class="list" ng-repeat="license in createPilot.licenses_attributes track by $index" ng-if="!license._destroy">
+      <label class="item item-input item-select">
+        <div class="input-label" translate="pilot_license_type_label"></div>
+        <select ng-model="license.type_of"  ng-options="type_of_license.value as type_of_license.value for type_of_license in pilot_type_of_licenses_attributes"  ng-change=" simpleSave.save('{{currentKey}}.licenses_attributes.{{$index}}.type_of', license.type_of )" >
+
+        </select>
+      </label>
+      <label class="item item-input item-select">
+        <div class="input-label" translate="issuing_auth_label"></div>
+        <select ng-options="issuance_authority.value as issuance_authority.value for issuance_authority in pilot_licenses_issuance_authorities" ng-model="license.issuance_authority" ng-change="simpleSave.save('{{currentKey}}.licenses_attributes.{{$index}}.issuance_authority', license.issuance_authority)">
+
+        </select>
+      </label>
+      <label class="item item-input item-select">
+        <div class="input-label" translate="issuing_country_label"></div>
+        <select ng-model="license.issuance_country_id" ng-options="country.id as country.name | translate for country in countries" ng-change="simpleSave.save('{{currentKey}}.licenses_attributes.{{$index}}.issuance_country_id', license.issuance_country_id)">
+        </select>
+      </label>
+      <label class="item item-input">
+        <div class="input-label" translate="pilot_license_number_label"></div>
+        <input class="right-placeholder" type="text" placeholder="{{ 'no_spaces_placeholder' | translate }}" ng-model="license.number"  ng-model-options="{ updateOn: 'blur' }" ng-change="simpleSave.save('{{currentKey}}.licenses_attributes.{{$index}}.number', license.number)">
+      </label>
+      <label class="item item-input item-select">
+        <div class="input-label">
+          <span translate="pilot_english_level_1"></span><br>
+          <span translate="pilot_english_level_2"></span>
+        </div>
+        <select ng-options="english_proficiency_level.value as english_proficiency_level.value for english_proficiency_level in pilot_english_proficiency_level" ng-model="license.english_proficiency_level" ng-change="simpleSave.save('{{currentKey}}.licenses_attributes.{{$index}}.english_proficiency_level', license.english_proficiency_level)">
+        </select>
+      </label>
+      <label class="item item-input item-input-date">
+        <span class="input-label" translate="date_issue_label"></span>
+        <input type="date" class="input-date" ng-model="license.date_of_issue"  ng-model-options="{ updateOn: 'blur' , getterSetter: true }" ng-change="simpleSave.save('{{currentKey}}.licenses_attributes.{{$index}}.date_of_issue', license.date_of_issue)">
+      </label>
+      <label class="item right">
+        <button class="button-like-link" ng-click="nestedObjectHandler.remove( {{$index}},'{{currentKey}}','licenses_attributes')" translate="pilot_delete_license_label"></button>
+      </label>
+    </div>
+    <label class="item no-border right">
+      <button class="button-like-link" ng-click="nestedObjectHandler.add('{{currentKey}}','licenses_attributes')" translate="pilot_add_license_label"></button>
+  </label>
+  </ion-content>
+
+  <ion-footer-bar align-title="center" class="footer-bar">
+    <div class="row m-0">
+      <div class="col"><a href="{{backURL}}" class="button next ion-chevron-left"> {{ 'back_label' | translate }}</a></div>
+      <div class="col text-center step-count">2/10</div>
+      <div ng-click="vm.validateLicense()" class="col text-right"><a class="button  next  icon-right ion-chevron-right" translate="next_label"></a></div>
+    </div>
+  </ion-footer-bar>
+
+</ion-view>

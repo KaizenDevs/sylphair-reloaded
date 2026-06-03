@@ -1,0 +1,110 @@
+<ion-view name="create-pilot-2-view" view-title="{{'create_job_FA_title' | translate }}">
+
+  <ion-nav-bar class="bar-dark-light">
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+    </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button ng-show="showCancelEdit" ng-click="cancelEdit()" class="button-cancel-edit">
+          <span translate="cancel_label"></span>
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content padding="true">
+    <div class="list">
+      <label class="item item-input item-select down" ng-click="goDown()">
+		    <div class="input-label" translate="position_label"></div>
+				<select ng-model="job.position" ng-options="position.value as position.name | translate for position in flight_attendant_position">
+				</select>
+		  </label>
+
+      <label class="item item-input item-select">
+		    <div class="input-label" translate="gender_label"></div>
+				<select ng-model="job.crew_member_details.gender" ng-options="gender.value as gender.name | translate for gender in genders_with_any">
+				</select>
+		  </label>
+
+      <label class="item item-input item-select">
+        <div class="input-label" translate="aircraft_label"></div>
+        <select ng-model="job.aircraft_id" ng-options="aircraft.id as aircraft.name for aircraft in aircrafts">
+        </select>
+      </label>
+
+      <label class="item item-input item-select">
+        <div class="input-label" translate="contract_type_label"></div>
+        <select ng-model="job.contract_type" ng-options="contract_type.value as contract_type.name | translate for contract_type in contract_types">
+        </select>
+      </label>
+
+      <label class="item item-input item-select">
+		    <div class="input-label" translate="job_location_label"></div>
+				<select ng-model="job.country_id" ng-options="country.id as country.name | translate for country in countries">
+				</select>
+		  </label>
+
+      <label class="item item-input item-input-date">
+		    <div class="input-label" translate="start_date_label"></div>
+		    <input type="date" class="input-date" ng-model="job.start_date">
+		  </label>
+      <label class="item item-input item-input-date">
+		    <div class="input-label" translate="end_date_label"></div>
+		    <input type="date" class="input-date" ng-model="job.end_date">
+		  </label>
+
+      <br>
+      <div class="list">
+        <div ng-repeat="language in job.language_proficiencies_attributes track by $index" ng-if="!language._destroy">
+          <label class="item item-input item-select">
+            <div class="input-label" translate="language_label"></div>
+            <select ng-model="language.language_id" ng-options="language.id as language.name | translate for language in languages">
+            </select>
+          </label>
+          <label class="item item-input item-select">
+            <div class="input-label" translate="lang_level_label"></div>
+            <select ng-model="language.level" ng-options="language.id as language.name | translate for language in language_levels">
+            </select>
+          </label>
+          <label class="item  right">
+              <button class="button-like-link" ng-click="nestedLanguage.remove( $index )" translate="remove_lang_label"></button>
+          </label>
+          <br>
+        </div>
+        <label class="item no-border right">
+            <button class="button-like-link" ng-click="nestedLanguage.add()" translate="add_lang_label"></button>
+        </label>
+      </div>
+      <br>
+
+      <label class="item item-input clean">
+        <ion-checkbox ng-model="job.crew_member_details.roster">
+          <span translate="rotation_label"></span>
+        </ion-checkbox>
+      </label>
+      <label class="item item-input clean">
+        <ion-checkbox ng-model="job.crew_member_details.food_preparation">
+          <span translate="food_preparation_label"></span>
+        </ion-checkbox>
+      </label>
+      <label class="item item-input">
+				<div class="input-label" translate="monthly_salary_label"></div>
+				<input name="monthly-salary" class="right-placeholder" type="number" placeholder="No spaces" ng-model="job.monthly_salary">
+			</label>
+      <br>
+      <label class="item item-input item-stacked-label">
+				<span class="input-label" translate="criteria_qualification_label"></span>
+				<textarea ng-model="job.crew_member_details.qualification_request" rows="5"></textarea>
+			</label>
+      <br>
+      <label class="item item-input item-stacked-label">
+				<span class="input-label" translate="skills_label"></span>
+				<textarea ng-model="job.crew_member_details.skills" rows="5"></textarea>
+			</label>
+    </div>
+
+    <button ng-show="!editingJob" class="button icon-left button-block button-positive" ng-click="doCreateJob()" translate="create_job_label"></button>
+    <button ng-show="editingJob" class="button icon-left button-block button-positive" ng-click="doEditJob()" translate="edit_job_label"></button>
+  </ion-content>
+
+</ion-view>
